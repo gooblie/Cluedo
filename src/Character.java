@@ -12,23 +12,47 @@ public class Character extends Card
   //------------------------
   // MEMBER VARIABLES
   //------------------------
-
+  private String name;
+  private Squares location;
+  private Room room;
+  private String type;
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Character()
-  {
-    super();
+  public Character(String name) {
+    super(name);
+    this.name = name;
+    this.type = "Character";
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public void delete()
-  {
-    super.delete();
+  @Override
+  public void setName(String name) {
+    this.name = name;
   }
 
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  public Squares getLocation() {
+    return location;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public Room getRoom() {
+    return room;
+  }
+
+  public void setRoom(Room room) {
+    this.room = room;
+  }
 }

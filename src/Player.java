@@ -15,14 +15,20 @@ public class Player
 
   //Player Associations
   private List<Card> cards;
+  private Squares location;
+  private Room currentRoom;
+  private Game game;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Player()
+  public Player(Squares spawnSquare, Game game)
   {
     cards = new ArrayList<Card>();
+    this.location = spawnSquare;
+    this.currentRoom = Board.getRoom(this.location);
+    this.game = game;
   }
 
   //------------------------
@@ -66,47 +72,17 @@ public class Player
   /* Code from template association_AddManyToManyMethod */
   public boolean addCard(Card aCard)
   {
-    boolean wasAdded = false;
     if (cards.contains(aCard)) { return false; }
     cards.add(aCard);
-    if (aCard.indexOfPlayer(this) != -1)
-    {
-      wasAdded = true;
-    }
-    else
-    {
-      wasAdded = aCard.addPlayer(this);
-      if (!wasAdded)
-      {
-        cards.remove(aCard);
-      }
-    }
-    return wasAdded;
+    return true;
   }
   /* Code from template association_RemoveMany */
   public boolean removeCard(Card aCard)
   {
     boolean wasRemoved = false;
-    if (!cards.contains(aCard))
-    {
-      return wasRemoved;
-    }
-
-    int oldIndex = cards.indexOf(aCard);
-    cards.remove(oldIndex);
-    if (aCard.indexOfPlayer(this) == -1)
-    {
-      wasRemoved = true;
-    }
-    else
-    {
-      wasRemoved = aCard.removePlayer(this);
-      if (!wasRemoved)
-      {
-        cards.add(oldIndex,aCard);
-      }
-    }
-    return wasRemoved;
+    if (!cards.contains(aCard)) { return false; }
+    cards.remove(cards.indexOf(aCard));
+    return true;
   }
   /* Code from template association_AddIndexControlFunctions */
   public boolean addCardAt(Card aCard, int index)
@@ -141,14 +117,34 @@ public class Player
     return wasAdded;
   }
 
-  public void delete()
-  {
-    ArrayList<Card> copyOfCards = new ArrayList<Card>(cards);
-    cards.clear();
-    for(Card aCard : copyOfCards)
-    {
-      aCard.removePlayer(this);
+  public boolean isValidMove(){return true;} //todo when grid programmed
+
+  public void move(String dir, int steps){
+    if(isValidMove()){
+      switch(dir){
+        case "North": this.location.setY(this.location.getY() + steps);
+        case "East": this.location.setX(this.location.getX() + steps);
+        case "South": this.location.setY(this.location.getY() - steps);
+        case "West": this.location.setX(this.location.getX() - steps);
+      }
+      this.currentRoom = Board.getRoom(this.location);
     }
   }
 
+  public boolean suggest(Character c, Weapon w){
+    if(!inRoom())return false;
+    this.game.setSuggestion(new Call(currentRoom, c, w));
+    if(c.getRoom() != currentRoom)c.setRoom(currentRoom);
+    if(w.getRoom() != currentRoom)w.setRoom(currentRoom);
+    return true;
+  }
+
+  public Card refute(Card card){
+    if(!game.getSuggestion().contains(card))return null;
+    return card;
+  }
+
+  public boolean inRoom(){
+    return(this.currentRoom != null);
+  }
 }

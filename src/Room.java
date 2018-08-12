@@ -12,23 +12,38 @@ public class Room extends Card
   //------------------------
   // MEMBER VARIABLES
   //------------------------
-
+  private String name;
+  private Squares location;
+  private String type;
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Room()
-  {
-    super();
+  public Room (String name) {
+    super(name);
+    this.name = name;
+    this.type = "Room";
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public void delete()
-  {
-    super.delete();
+  @Override
+  public void setName(String name) {
+    this.name = name;
   }
 
+  @Override
+  public String getName() {
+    return name;
+  }
+
+  public Squares getLocation() {
+    return location;
+  }
+
+  public String getType() {
+    return type;
+  }
 }

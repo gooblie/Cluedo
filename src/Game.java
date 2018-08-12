@@ -18,7 +18,7 @@ public class Game
   private List<Player> players;
   private Board board;
   private Envelope envelope;
-
+  private Call suggestion;
   //------------------------
   // CONSTRUCTOR
   //------------------------
@@ -33,7 +33,7 @@ public class Game
     boolean didAddPlayers = setPlayers(allPlayers);
     if (!didAddPlayers)
     {
-      throw new RuntimeException("Unable to create Game, must have 2 to 6 players");
+      throw new RuntimeException("Unable to create Game, must have 1 to 6 players");
     }
     if (!setBoard(aBoard))
     {
@@ -107,7 +107,7 @@ public class Game
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfPlayers()
   {
-    return 2;
+    return 1;
   }
   /* Code from template association_MaximumNumberOfMethod */
   public static int maximumNumberOfPlayers()
@@ -221,6 +221,14 @@ public class Game
       wasSet = true;
     }
     return wasSet;
+  }
+
+  public void setSuggestion(Call suggestion) {
+    this.suggestion = suggestion;
+  }
+
+  public Call getSuggestion() {
+    return suggestion;
   }
 
   public void delete()
