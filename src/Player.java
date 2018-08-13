@@ -2,6 +2,8 @@
 /*This code was generated using the UMPLE 1.28.0.4160.f573280ad modeling language!*/
 
 
+import com.sun.xml.internal.bind.v2.TODO;
+
 import java.util.*;
 
 // line 26 "model.ump"
@@ -144,13 +146,15 @@ public class Player
   }
 
   // line 31 "model.ump"
-   public boolean suggest(){
-    
+  public boolean suggest(){
+    //TODO
+    return false;
   }
 
   // line 34 "model.ump"
    public boolean accuse(){
-    
+    //TODO
+    return false;
   }
 
   // line 37 "model.ump"

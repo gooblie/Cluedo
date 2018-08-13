@@ -20,7 +20,7 @@ public class Board
   //------------------------
 
   //Board Attributes
-  private char board;
+  private char board[][];
 
   //Board Associations
   private List<Position> positions;
@@ -30,34 +30,16 @@ public class Board
   // CONSTRUCTOR
   //------------------------
 
-  public Board(char aBoard, Room... allRooms)
+  public Board(String fileName)
   {
-    board = aBoard;
-    positions = new ArrayList<Position>();
-    rooms = new ArrayList<Room>();
-    boolean didAddRooms = setRooms(allRooms);
-    if (!didAddRooms)
-    {
-      throw new RuntimeException("Unable to create Board, must have 9 rooms");
-    }
+
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setBoard(char aBoard)
-  {
-    boolean wasSet = false;
-    board = aBoard;
-    wasSet = true;
-    return wasSet;
-  }
 
-  public char getBoard()
-  {
-    return board;
-  }
   /* Code from template association_GetMany */
   public Position getPosition(int index)
   {
@@ -221,15 +203,8 @@ public class Board
     rooms.clear();
   }
 
-  // line 19 "model.ump"
-   public boolean isMoveValid(Player player, Direction dir){
-    
+  public boolean isMoveValid(Player player, Direction dir){
+    return false;
   }
 
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "board" + ":" + getBoard()+ "]";
-  }
 }
