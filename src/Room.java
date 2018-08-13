@@ -1,24 +1,29 @@
-public class Room extends Card {
+import java.util.*;
 
-    //------------------------
-    // MEMBER VARIABLES
-    //------------------------
+public class Room {
 
-    //------------------------
-    // CONSTRUCTOR
-    //------------------------
+    private String name;
+    private List<Player> players;
+    private List<Position> positions;
 
-    public Room(String aName) {
-        super(aName);
+    public Room(String name, List<Position> positions){
+        this.name = name;
+        this.positions = positions;
     }
 
-    //------------------------
-    // INTERFACE
-    //------------------------
-
-    public void delete() {
-        super.delete();
+    public String getName() {
+        return name;
     }
 
+    public List<Position> getPositions() {
+        return positions;
+    }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void addPlayer(Player player){
+        players.add(player);
+    }
 }

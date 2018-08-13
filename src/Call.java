@@ -8,19 +8,19 @@ public class Call
     //------------------------
 
     //Call Associations
-    private Weapon weapon;
-    private Room room;
-    private GameCharacter character;
+    private WeaponCard weaponCard;
+    private RoomCard room;
+    private CharacterCard character;
 
     //------------------------
     // CONSTRUCTOR
     //------------------------
 
-    public Call(Weapon aWeapon, Room aRoom, GameCharacter aCharacter)
+    public Call(WeaponCard aWeaponCard, RoomCard aRoom, CharacterCard aCharacter)
     {
-        if (!setWeapon(aWeapon))
+        if (!setWeapon(aWeaponCard))
         {
-            throw new RuntimeException("Unable to create Call due to aWeapon");
+            throw new RuntimeException("Unable to create Call due to aWeaponCard");
         }
         if (!setRoom(aRoom))
         {
@@ -37,36 +37,36 @@ public class Call
     //------------------------
 
     /* Code from template association_GetOne */
-    public Weapon getWeapon()
+    public WeaponCard getWeaponCard()
     {
-        return weapon;
+        return weaponCard;
     }
 
     /* Code from template association_GetOne */
-    public Room getRoom()
+    public RoomCard getRoom()
     {
         return room;
     }
 
     /* Code from template association_GetOne */
-    public GameCharacter getCharacter()
+    public CharacterCard getCharacter()
     {
         return character;
     }
 
     /* Code from template association_SetUnidirectionalOne */
-    public boolean setWeapon(Weapon aNewWeapon)
+    public boolean setWeapon(WeaponCard aNewWeaponCard)
     {
         boolean wasSet = false;
-        if (aNewWeapon != null)
+        if (aNewWeaponCard != null)
         {
-            weapon = aNewWeapon;
+            weaponCard = aNewWeaponCard;
             wasSet = true;
         }
         return wasSet;
     }
     /* Code from template association_SetUnidirectionalOne */
-    public boolean setRoom(Room aNewRoom)
+    public boolean setRoom(RoomCard aNewRoom)
     {
         boolean wasSet = false;
         if (aNewRoom != null)
@@ -77,7 +77,7 @@ public class Call
         return wasSet;
     }
     /* Code from template association_SetUnidirectionalOne */
-    public boolean setCharacter(GameCharacter aNewCharacter)
+    public boolean setCharacter(CharacterCard aNewCharacter)
     {
         boolean wasSet = false;
         if (aNewCharacter != null)
@@ -93,7 +93,7 @@ public class Call
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Call call = (Call) o;
-        return Objects.equals(weapon, call.weapon) &&
+        return Objects.equals(weaponCard, call.weaponCard) &&
                 Objects.equals(room, call.room) &&
                 Objects.equals(character, call.character);
     }
@@ -101,6 +101,6 @@ public class Call
     @Override
     public int hashCode() {
 
-        return Objects.hash(weapon, room, character);
+        return Objects.hash(weaponCard, room, character);
     }
 }

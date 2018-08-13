@@ -1,4 +1,4 @@
-public class Weapon extends Card {
+public class RoomCard extends Card {
 
     //------------------------
     // MEMBER VARIABLES
@@ -8,7 +8,7 @@ public class Weapon extends Card {
     // CONSTRUCTOR
     //------------------------
 
-    public Weapon(String aName) {
+    public RoomCard(String aName) {
         super(aName);
     }
 

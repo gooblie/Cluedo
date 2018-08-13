@@ -1,4 +1,3 @@
-import java.lang.Character;
 import java.util.*;
 
 public class CardStack
@@ -10,85 +9,69 @@ public class CardStack
 
     //CardStack Associations
     private List<Card> cards;
+    private Game game;
 
     //------------------------
     // CONSTRUCTOR
     //------------------------
 
-    public CardStack()
+    public CardStack(Game game)
     {
         cards = new ArrayList<Card>();
         //characters:
-        cards.add(new GameCharacter("Miss Scarlett"));
-        cards.add(new GameCharacter("Colonel Mustard"));
-        cards.add(new GameCharacter("Mrs White"));
-        cards.add(new GameCharacter("Mr Green"));
-        cards.add(new GameCharacter("Mrs Peacock"));
-        cards.add(new GameCharacter("Professor Plum"));
+        cards.addAll(game.getCharacters());
         //weapons:
-        cards.add(new Weapon("Candlestick"));
-        cards.add(new Weapon("Dagger"));
-        cards.add(new Weapon("Lead Pipe"));
-        cards.add(new Weapon("Revolver"));
-        cards.add(new Weapon("Rope"));
-        cards.add(new Weapon("Spanner"));
-        //rooms:
-        cards.add(new Room("Kitchen"));
-        cards.add(new Room("Ballroom"));
-        cards.add(new Room("Conservatory"));
-        cards.add(new Room("Dining room"));
-        cards.add(new Room("Lounge"));
-        cards.add(new Room("Billiard room"));
-        cards.add(new Room("Library"));
-        cards.add(new Room("Study"));
-        cards.add(new Room("Hall"));
+        cards.addAll(game.getWeapons());
+        //roomCards:
+        cards.addAll(game.getRoomCards());
     }
 
     //------------------------
     // INTERFACE
     //------------------------
 
-    public Weapon getWeaponCard(){
-        List<Weapon> weapons = new ArrayList<>();
+    public WeaponCard getWeaponCard(){
+        List<WeaponCard> weaponCards = new ArrayList<>();
         for (Card c: cards) {
-            if(c instanceof Weapon){weapons.add((Weapon)c);}
+            if(c instanceof WeaponCard){
+                weaponCards.add((WeaponCard)c);}
         }
         //return null if no weapons in deck
-        if(weapons.isEmpty()){return null;}
-        //otherwise choose a random weapon
+        if(weaponCards.isEmpty()){return null;}
+        //otherwise choose a random weaponCard
         Random rand = new Random();
-        int RandIndex = rand.nextInt(weapons.size());
-        Weapon weapon = weapons.get(RandIndex);
-        weapons.remove(weapon);
-        return weapon;
+        int RandIndex = rand.nextInt(weaponCards.size());
+        WeaponCard weaponCard = weaponCards.get(RandIndex);
+        weaponCards.remove(weaponCard);
+        return weaponCard;
     }
 
-    public GameCharacter getCharacterCard(){
-        List<GameCharacter> characters = new ArrayList<>();
+    public CharacterCard getCharacterCard(){
+        List<CharacterCard> characters = new ArrayList<>();
         for (Card c: cards) {
-            if(c instanceof GameCharacter){characters.add((GameCharacter)c);}
+            if(c instanceof CharacterCard){characters.add((CharacterCard)c);}
         }
         //return null if no characters in deck
         if(characters.isEmpty()){return null;}
         //otherwise choose a random character
         Random rand = new Random();
         int RandIndex = rand.nextInt(characters.size());
-        GameCharacter character = characters.get(RandIndex);
+        CharacterCard character = characters.get(RandIndex);
         characters.remove(character);
         return character;
     }
 
-    public Room getRoomCard(){
-        List<Room> rooms = new ArrayList<>();
+    public RoomCard getRoomCard(){
+        List<RoomCard> rooms = new ArrayList<>();
         for (Card c: cards) {
-            if(c instanceof Room){rooms.add((Room)c);}
+            if(c instanceof RoomCard){rooms.add((RoomCard)c);}
         }
         //return null if no characters in deck
         if(rooms.isEmpty()){return null;}
         //otherwise choose a random character
         Random rand = new Random();
         int RandIndex = rand.nextInt(rooms.size());
-        Room room = rooms.get(RandIndex);
+        RoomCard room = rooms.get(RandIndex);
         rooms.remove(room);
         return room;
     }
@@ -102,6 +85,10 @@ public class CardStack
         Card card = cards.get(RandIndex);
         cards.remove(card);
         return card;
+    }
+
+    public boolean hasCard(){
+        return !cards.isEmpty();
     }
 
     public List<Card> getCards() {

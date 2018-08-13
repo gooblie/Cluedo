@@ -21,13 +21,15 @@ public class Board
 
     //Board Associations
     private List<Room> rooms;
+    private Game game;
 
     //------------------------
     // CONSTRUCTOR
     //------------------------
 
-    public Board(String fileName)
+    public Board(String fileName, Game game)
     {
+        this.game = game;
         board = new char[25][24];
         File boardFile = new File(fileName);
         try {
@@ -42,6 +44,8 @@ public class Board
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        //TODO: initialise room objects with names and positions of entrances
     }
 
     //------------------------
@@ -66,7 +70,6 @@ public class Board
             }
         }
     }
-
 
     public boolean isMoveValid(Player player, Direction dir){
         return false;

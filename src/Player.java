@@ -40,19 +40,20 @@ public class Player {
         return newCards;
     }
 
-    // line 31 "model.ump"
+    public void addCard(Card card){
+        cards.add(card);
+    }
+
     public boolean suggest(Call call) {
         //TODO
         return false;
     }
 
-    // line 34 "model.ump"
     public boolean accuse(Call call) {
         //TODO
         return false;
     }
 
-    // line 37 "model.ump"
     public void move() {
 
     }
