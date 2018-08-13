@@ -10,13 +10,13 @@ public class Call
     //Call Associations
     private Weapon weapon;
     private Room room;
-    private Character character;
+    private GameCharacter character;
 
     //------------------------
     // CONSTRUCTOR
     //------------------------
 
-    public Call(Weapon aWeapon, Room aRoom, Character aCharacter)
+    public Call(Weapon aWeapon, Room aRoom, GameCharacter aCharacter)
     {
         if (!setWeapon(aWeapon))
         {
@@ -49,7 +49,7 @@ public class Call
     }
 
     /* Code from template association_GetOne */
-    public Character getCharacter()
+    public GameCharacter getCharacter()
     {
         return character;
     }
@@ -77,7 +77,7 @@ public class Call
         return wasSet;
     }
     /* Code from template association_SetUnidirectionalOne */
-    public boolean setCharacter(Character aNewCharacter)
+    public boolean setCharacter(GameCharacter aNewCharacter)
     {
         boolean wasSet = false;
         if (aNewCharacter != null)

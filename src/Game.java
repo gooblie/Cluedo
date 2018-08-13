@@ -1,76 +1,84 @@
+import javax.swing.plaf.synth.SynthEditorPaneUI;
+import java.lang.Character;
 import java.util.*;
 
-public class Game
-{
+public class Game {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    //------------------------
+    // MEMBER VARIABLES
+    //------------------------
 
-  //Game Attributes
-  private int turn;
-  private Call Envelope;
-  private boolean won;
+    //Game Attributes
+    private int turn;
+    private Call Envelope;
+    private boolean won;
 
-  //Game Associations
-  private Board board;
-  private CardStack cardStack;
-  private List<Player> players;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    //Game Associations
+    private Board board;
+    private CardStack cardStack;
+    private List<Player> players;
 
-  public Game()
-  {
-    initGame();
-  }
+    //------------------------
+    // CONSTRUCTOR
+    //------------------------
 
-  //------------------------
-  // METHODS
-  //------------------------
-
-  public void initGame(){
-    turn = 1;
-    players = new ArrayList<>();
-    new Board("board.txt");
-
-    System.out.println("Welcome to Cluedo!");
-    System.out.println("how many players do you have(3-6)?");
-    Scanner read = new Scanner(System.in);
-    String input = read.nextLine();
-
-  }
-
-  public void doTurn(){
-
-  }
-
-  public void doWin(Player player){
-    won = true;
-  }
-
-  public Board getBoard() {
-    return board;
-  }
-
-  public Call getEnvelope() {
-    return Envelope;
-  }
-
-  public boolean isWon() {
-    return won;
-  }
-
-  public CardStack getCardStack() {
-    return cardStack;
-  }
-
-  public static void main(String[] args){
-    Game game = new Game();
-    while(!game.isWon()){
-      game.doTurn();
+    public Game() {
+        initGame();
     }
-  }
+
+    //------------------------
+    // METHODS
+    //------------------------
+
+    public void initGame() {
+        turn = 1;
+        players = new ArrayList<>();
+        new Board("board.txt");
+
+        System.out.println("Welcome to Cluedo!");
+        int numOfPlayers = 0;
+        while(3 > numOfPlayers || numOfPlayers > 6){
+            System.out.println("how many players do you have(3-6)?");
+            Scanner read = new Scanner(System.in);
+            String input = read.nextLine();
+            numOfPlayers = Integer.parseInt(input);
+        }
+        for (int i = 0; i < numOfPlayers; i++) {
+
+        }
+
+    }
+
+    public void doTurn() {
+
+    }
+
+    public void doWin(Player player) {
+        won = true;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Call getEnvelope() {
+        return Envelope;
+    }
+
+    public boolean isWon() {
+        return won;
+    }
+
+    public CardStack getCardStack() {
+        return cardStack;
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        while (!game.isWon()) {
+            game.doTurn();
+        }
+    }
 
 }

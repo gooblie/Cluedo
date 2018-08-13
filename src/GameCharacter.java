@@ -1,4 +1,4 @@
-public class Character extends Card
+public class GameCharacter extends Card
 {
 
     //------------------------
@@ -9,7 +9,7 @@ public class Character extends Card
     // CONSTRUCTOR
     //------------------------
 
-    public Character(String aName)
+    public GameCharacter(String aName)
     {
         super(aName);
     }
