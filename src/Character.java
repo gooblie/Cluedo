@@ -1,27 +1,26 @@
-
 public class Character extends Card
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    //------------------------
+    // MEMBER VARIABLES
+    //------------------------
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    //------------------------
+    // CONSTRUCTOR
+    //------------------------
 
-  public Character(String aName)
-  {
-    super(aName);
-  }
+    public Character(String aName)
+    {
+        super(aName);
+    }
 
-  //------------------------
-  // INTERFACE
-  //------------------------
+    //------------------------
+    // INTERFACE
+    //------------------------
 
-  public void delete()
-  {
-    super.delete();
-  }
+    public void delete()
+    {
+        super.delete();
+    }
 
 }

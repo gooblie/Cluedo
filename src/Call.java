@@ -3,104 +3,104 @@ import java.util.Objects;
 public class Call
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    //------------------------
+    // MEMBER VARIABLES
+    //------------------------
 
-  //Call Associations
-  private Weapon weapon;
-  private Room room;
-  private Character character;
+    //Call Associations
+    private Weapon weapon;
+    private Room room;
+    private Character character;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    //------------------------
+    // CONSTRUCTOR
+    //------------------------
 
-  public Call(Weapon aWeapon, Room aRoom, Character aCharacter)
-  {
-    if (!setWeapon(aWeapon))
+    public Call(Weapon aWeapon, Room aRoom, Character aCharacter)
     {
-      throw new RuntimeException("Unable to create Call due to aWeapon");
+        if (!setWeapon(aWeapon))
+        {
+            throw new RuntimeException("Unable to create Call due to aWeapon");
+        }
+        if (!setRoom(aRoom))
+        {
+            throw new RuntimeException("Unable to create Call due to aRoom");
+        }
+        if (!setCharacter(aCharacter))
+        {
+            throw new RuntimeException("Unable to create Call due to aCharacter");
+        }
     }
-    if (!setRoom(aRoom))
+
+    //------------------------
+    // INTERFACE
+    //------------------------
+
+    /* Code from template association_GetOne */
+    public Weapon getWeapon()
     {
-      throw new RuntimeException("Unable to create Call due to aRoom");
+        return weapon;
     }
-    if (!setCharacter(aCharacter))
+
+    /* Code from template association_GetOne */
+    public Room getRoom()
     {
-      throw new RuntimeException("Unable to create Call due to aCharacter");
+        return room;
     }
-  }
 
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  /* Code from template association_GetOne */
-  public Weapon getWeapon()
-  {
-    return weapon;
-  }
-
-  /* Code from template association_GetOne */
-  public Room getRoom()
-  {
-    return room;
-  }
-
-  /* Code from template association_GetOne */
-  public Character getCharacter()
-  {
-    return character;
-  }
-
-  /* Code from template association_SetUnidirectionalOne */
-  public boolean setWeapon(Weapon aNewWeapon)
-  {
-    boolean wasSet = false;
-    if (aNewWeapon != null)
+    /* Code from template association_GetOne */
+    public Character getCharacter()
     {
-      weapon = aNewWeapon;
-      wasSet = true;
+        return character;
     }
-    return wasSet;
-  }
-  /* Code from template association_SetUnidirectionalOne */
-  public boolean setRoom(Room aNewRoom)
-  {
-    boolean wasSet = false;
-    if (aNewRoom != null)
+
+    /* Code from template association_SetUnidirectionalOne */
+    public boolean setWeapon(Weapon aNewWeapon)
     {
-      room = aNewRoom;
-      wasSet = true;
+        boolean wasSet = false;
+        if (aNewWeapon != null)
+        {
+            weapon = aNewWeapon;
+            wasSet = true;
+        }
+        return wasSet;
     }
-    return wasSet;
-  }
-  /* Code from template association_SetUnidirectionalOne */
-  public boolean setCharacter(Character aNewCharacter)
-  {
-    boolean wasSet = false;
-    if (aNewCharacter != null)
+    /* Code from template association_SetUnidirectionalOne */
+    public boolean setRoom(Room aNewRoom)
     {
-      character = aNewCharacter;
-      wasSet = true;
+        boolean wasSet = false;
+        if (aNewRoom != null)
+        {
+            room = aNewRoom;
+            wasSet = true;
+        }
+        return wasSet;
     }
-    return wasSet;
-  }
+    /* Code from template association_SetUnidirectionalOne */
+    public boolean setCharacter(Character aNewCharacter)
+    {
+        boolean wasSet = false;
+        if (aNewCharacter != null)
+        {
+            character = aNewCharacter;
+            wasSet = true;
+        }
+        return wasSet;
+    }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    Call call = (Call) o;
-    return Objects.equals(weapon, call.weapon) &&
-            Objects.equals(room, call.room) &&
-            Objects.equals(character, call.character);
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Call call = (Call) o;
+        return Objects.equals(weapon, call.weapon) &&
+                Objects.equals(room, call.room) &&
+                Objects.equals(character, call.character);
+    }
 
-  @Override
-  public int hashCode() {
+    @Override
+    public int hashCode() {
 
-    return Objects.hash(weapon, room, character);
-  }
+        return Objects.hash(weapon, room, character);
+    }
 }

@@ -1,35 +1,24 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.28.0.4160.f573280ad modeling language!*/
+public class Weapon extends Card {
 
+    //------------------------
+    // MEMBER VARIABLES
+    //------------------------
 
+    //------------------------
+    // CONSTRUCTOR
+    //------------------------
 
-// line 59 "model.ump"
-// line 119 "model.ump"
-public class Weapon extends Card
-{
+    public Weapon(String aName) {
+        super(aName);
+    }
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    //------------------------
+    // INTERFACE
+    //------------------------
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-  public Weapon(String aName)
-  {
-    super(aName);
-  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  public void delete()
-  {
-    super.delete();
-  }
-
+    public void delete() {
+        super.delete();
+    }
 
 
 }

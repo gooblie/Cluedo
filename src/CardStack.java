@@ -3,26 +3,23 @@ import java.util.*;
 public class CardStack
 {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    //------------------------
+    // MEMBER VARIABLES
+    //------------------------
 
-  //CardStack Associations
-  private List<Card> cards;
+    //CardStack Associations
+    private List<Card> cards;
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    //------------------------
+    // CONSTRUCTOR
+    //------------------------
 
-  public CardStack()
-  {
-    cards = new ArrayList<Card>();
-  }
+    public CardStack()
+    {
+        cards = new ArrayList<Card>();
+    }
 
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-
-
+    //------------------------
+    // INTERFACE
+    //------------------------
 }

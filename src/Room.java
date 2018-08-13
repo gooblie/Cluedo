@@ -1,29 +1,24 @@
+public class Room extends Card {
 
-public class Room extends Card
-{
+    //------------------------
+    // MEMBER VARIABLES
+    //------------------------
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    //------------------------
+    // CONSTRUCTOR
+    //------------------------
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    public Room(String aName) {
+        super(aName);
+    }
 
-  public Room(String aName)
-  {
-    super(aName);
-  }
+    //------------------------
+    // INTERFACE
+    //------------------------
 
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  public void delete()
-  {
-    super.delete();
-  }
-
+    public void delete() {
+        super.delete();
+    }
 
 
 }
