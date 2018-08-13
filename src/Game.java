@@ -4,8 +4,8 @@
 
 import java.util.*;
 
-// line 2 "model.ump"
-// line 58 "model.ump"
+// line 4 "model.ump"
+// line 141 "model.ump"
 public class Game
 {
 
@@ -13,45 +13,62 @@ public class Game
   // MEMBER VARIABLES
   //------------------------
 
+  //Game Attributes
+  private int turn;
+
   //Game Associations
-  private Stack stack;
-  private List<Player> players;
   private Board board;
-  private Envelope envelope;
-  private Call suggestion;
+  private CardStack cardStack;
+  private List<Player> players;
+
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Game(Stack aStack, Board aBoard, Envelope aEnvelope, Player... allPlayers)
+  public Game(int aTurn, Board aBoard, CardStack aCardStack, Player... allPlayers)
   {
-    if (!setStack(aStack))
+    turn = aTurn;
+    if (!setBoard(aBoard))
     {
-      throw new RuntimeException("Unable to create Game due to aStack");
+      throw new RuntimeException("Unable to create Game due to aBoard");
+    }
+    if (!setCardStack(aCardStack))
+    {
+      throw new RuntimeException("Unable to create Game due to aCardStack");
     }
     players = new ArrayList<Player>();
     boolean didAddPlayers = setPlayers(allPlayers);
     if (!didAddPlayers)
     {
-      throw new RuntimeException("Unable to create Game, must have 1 to 6 players");
-    }
-    if (!setBoard(aBoard))
-    {
-      throw new RuntimeException("Unable to create Game due to aBoard");
-    }
-    if (!setEnvelope(aEnvelope))
-    {
-      throw new RuntimeException("Unable to create Game due to aEnvelope");
+      throw new RuntimeException("Unable to create Game, must have 2 to 6 players");
     }
   }
 
   //------------------------
   // INTERFACE
   //------------------------
-  /* Code from template association_GetOne */
-  public Stack getStack()
+
+  public boolean setTurn(int aTurn)
   {
-    return stack;
+    boolean wasSet = false;
+    turn = aTurn;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public int getTurn()
+  {
+    return turn;
+  }
+  /* Code from template association_GetOne */
+  public Board getBoard()
+  {
+    return board;
+  }
+  /* Code from template association_GetOne */
+  public CardStack getCardStack()
+  {
+    return cardStack;
   }
   /* Code from template association_GetMany */
   public Player getPlayer(int index)
@@ -83,23 +100,24 @@ public class Game
     int index = players.indexOf(aPlayer);
     return index;
   }
-  /* Code from template association_GetOne */
-  public Board getBoard()
-  {
-    return board;
-  }
-  /* Code from template association_GetOne */
-  public Envelope getEnvelope()
-  {
-    return envelope;
-  }
   /* Code from template association_SetUnidirectionalOne */
-  public boolean setStack(Stack aNewStack)
+  public boolean setBoard(Board aNewBoard)
   {
     boolean wasSet = false;
-    if (aNewStack != null)
+    if (aNewBoard != null)
     {
-      stack = aNewStack;
+      board = aNewBoard;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setCardStack(CardStack aNewCardStack)
+  {
+    boolean wasSet = false;
+    if (aNewCardStack != null)
+    {
+      cardStack = aNewCardStack;
       wasSet = true;
     }
     return wasSet;
@@ -107,7 +125,7 @@ public class Game
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfPlayers()
   {
-    return 1;
+    return 2;
   }
   /* Code from template association_MaximumNumberOfMethod */
   public static int maximumNumberOfPlayers()
@@ -200,43 +218,25 @@ public class Game
     }
     return wasAdded;
   }
-  /* Code from template association_SetUnidirectionalOne */
-  public boolean setBoard(Board aNewBoard)
-  {
-    boolean wasSet = false;
-    if (aNewBoard != null)
-    {
-      board = aNewBoard;
-      wasSet = true;
-    }
-    return wasSet;
-  }
-  /* Code from template association_SetUnidirectionalOne */
-  public boolean setEnvelope(Envelope aNewEnvelope)
-  {
-    boolean wasSet = false;
-    if (aNewEnvelope != null)
-    {
-      envelope = aNewEnvelope;
-      wasSet = true;
-    }
-    return wasSet;
-  }
-
-  public void setSuggestion(Call suggestion) {
-    this.suggestion = suggestion;
-  }
-
-  public Call getSuggestion() {
-    return suggestion;
-  }
 
   public void delete()
   {
-    stack = null;
-    players.clear();
     board = null;
-    envelope = null;
+    cardStack = null;
+    players.clear();
   }
 
+  // line 8 "model.ump"
+   public void initGame(){
+    public void doTurn(){}
+  }
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "turn" + ":" + getTurn()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "board = "+(getBoard()!=null?Integer.toHexString(System.identityHashCode(getBoard())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "cardStack = "+(getCardStack()!=null?Integer.toHexString(System.identityHashCode(getCardStack())):"null");
+  }
 }

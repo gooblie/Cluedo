@@ -5,7 +5,7 @@
 import java.util.*;
 
 // line 26 "model.ump"
-// line 86 "model.ump"
+// line 92 "model.ump"
 public class Player
 {
 
@@ -13,27 +13,38 @@ public class Player
   // MEMBER VARIABLES
   //------------------------
 
+  //Player Attributes
+  private String name;
+
   //Player Associations
   private List<Card> cards;
-  private Squares location;
-  private Room currentRoom;
-  private Game game;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Player(Squares spawnSquare, Game game)
+  public Player(String aName)
   {
+    name = aName;
     cards = new ArrayList<Card>();
-    this.location = spawnSquare;
-    this.currentRoom = Board.getRoom(this.location);
-    this.game = game;
   }
 
   //------------------------
   // INTERFACE
   //------------------------
+
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
   /* Code from template association_GetMany */
   public Card getCard(int index)
   {
@@ -64,25 +75,35 @@ public class Player
     int index = cards.indexOf(aCard);
     return index;
   }
+  /* Code from template association_GetMany_clear */
+  protected void clear_cards()
+  {
+    cards.clear();
+  }
   /* Code from template association_MinimumNumberOfMethod */
   public static int minimumNumberOfCards()
   {
     return 0;
   }
-  /* Code from template association_AddManyToManyMethod */
+  /* Code from template association_AddUnidirectionalMany */
   public boolean addCard(Card aCard)
   {
+    boolean wasAdded = false;
     if (cards.contains(aCard)) { return false; }
     cards.add(aCard);
-    return true;
+    wasAdded = true;
+    return wasAdded;
   }
-  /* Code from template association_RemoveMany */
+
   public boolean removeCard(Card aCard)
   {
     boolean wasRemoved = false;
-    if (!cards.contains(aCard)) { return false; }
-    cards.remove(cards.indexOf(aCard));
-    return true;
+    if (cards.contains(aCard))
+    {
+      cards.remove(aCard);
+      wasRemoved = true;
+    }
+    return wasRemoved;
   }
   /* Code from template association_AddIndexControlFunctions */
   public boolean addCardAt(Card aCard, int index)
@@ -117,34 +138,30 @@ public class Player
     return wasAdded;
   }
 
-  public boolean isValidMove(){return true;} //todo when grid programmed
-
-  public void move(String dir, int steps){
-    if(isValidMove()){
-      switch(dir){
-        case "North": this.location.setY(this.location.getY() + steps);
-        case "East": this.location.setX(this.location.getX() + steps);
-        case "South": this.location.setY(this.location.getY() - steps);
-        case "West": this.location.setX(this.location.getX() - steps);
-      }
-      this.currentRoom = Board.getRoom(this.location);
-    }
+  public void delete()
+  {
+    cards.clear();
   }
 
-  public boolean suggest(Character c, Weapon w){
-    if(!inRoom())return false;
-    this.game.setSuggestion(new Call(currentRoom, c, w));
-    if(c.getRoom() != currentRoom)c.setRoom(currentRoom);
-    if(w.getRoom() != currentRoom)w.setRoom(currentRoom);
-    return true;
+  // line 31 "model.ump"
+   public boolean suggest(){
+    
   }
 
-  public Card refute(Card card){
-    if(!game.getSuggestion().contains(card))return null;
-    return card;
+  // line 34 "model.ump"
+   public boolean accuse(){
+    
   }
 
-  public boolean inRoom(){
-    return(this.currentRoom != null);
+  // line 37 "model.ump"
+   public void move(){
+    
+  }
+
+
+  public String toString()
+  {
+    return super.toString() + "["+
+            "name" + ":" + getName()+ "]";
   }
 }

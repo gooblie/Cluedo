@@ -4,23 +4,23 @@
 
 import java.util.*;
 
-// line 14 "model.ump"
-// line 72 "model.ump"
-public class Stack
+// line 76 "model.ump"
+// line 135 "model.ump"
+public class CardStack
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Stack Associations
+  //CardStack Associations
   private List<Card> cards;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Stack()
+  public CardStack()
   {
     cards = new ArrayList<Card>();
   }

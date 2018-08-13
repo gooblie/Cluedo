@@ -3,42 +3,57 @@
 
 
 
-// line 41 "model.ump"
-// line 100 "model.ump"
-public class Card
+// line 46 "model.ump"
+// line 106 "model.ump"
+public class Position
 {
 
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
-  //Card Attributes
-  private String name;
+  //Position Attributes
+  private int x;
+  private int y;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Card(String aName)
+  public Position(int aX, int aY)
   {
-    name = aName;
+    x = aX;
+    y = aY;
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
+  public boolean setX(int aX)
   {
     boolean wasSet = false;
-    name = aName;
+    x = aX;
     wasSet = true;
     return wasSet;
   }
 
-  public String getName()
+  public boolean setY(int aY)
   {
-    return name;
+    boolean wasSet = false;
+    y = aY;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public int getX()
+  {
+    return x;
+  }
+
+  public int getY()
+  {
+    return y;
   }
 
   public void delete()
@@ -48,6 +63,7 @@ public class Card
   public String toString()
   {
     return super.toString() + "["+
-            "name" + ":" + getName()+ "]";
+            "x" + ":" + getX()+ "," +
+            "y" + ":" + getY()+ "]";
   }
 }

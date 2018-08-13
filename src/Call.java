@@ -1,43 +1,99 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+/*PLEASE DO NOT EDIT THIS CODE*/
+/*This code was generated using the UMPLE 1.28.0.4160.f573280ad modeling language!*/
 
-public class Call {
-    private Room room;
-    private Character character;
-    private Weapon weapon;
-    private ArrayList<Card> circumstance;
 
-    //suggestion & accusation constructor
-    public Call(Room r, Character c, Weapon w){
-        this.room = r;
-        this.character = c;
-        this.weapon = w;
-        this.circumstance.add(r);
-        this.circumstance.add(c);
-        this.circumstance.add(w);
+
+// line 52 "model.ump"
+// line 111 "model.ump"
+public class Call
+{
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+
+  //Call Associations
+  private Weapon weapon;
+  private Room room;
+  private Character character;
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+
+  public Call(Weapon aWeapon, Room aRoom, Character aCharacter)
+  {
+    if (!setWeapon(aWeapon))
+    {
+      throw new RuntimeException("Unable to create Call due to aWeapon");
     }
-
-    //refutation constructor
-    public Call(Card card){
-        if(card instanceof Room)this.room = (Room) card;
-        if(card instanceof Character)this.character = (Character) card;
-        if(card instanceof Weapon)this.weapon = (Weapon) card;
-        this.circumstance.add(card);
+    if (!setRoom(aRoom))
+    {
+      throw new RuntimeException("Unable to create Call due to aRoom");
     }
-
-    public Room getRoom() {
-        return room;
+    if (!setCharacter(aCharacter))
+    {
+      throw new RuntimeException("Unable to create Call due to aCharacter");
     }
+  }
 
-    public Character getCharacter() {
-        return character;
+  //------------------------
+  // INTERFACE
+  //------------------------
+  /* Code from template association_GetOne */
+  public Weapon getWeapon()
+  {
+    return weapon;
+  }
+  /* Code from template association_GetOne */
+  public Room getRoom()
+  {
+    return room;
+  }
+  /* Code from template association_GetOne */
+  public Character getCharacter()
+  {
+    return character;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setWeapon(Weapon aNewWeapon)
+  {
+    boolean wasSet = false;
+    if (aNewWeapon != null)
+    {
+      weapon = aNewWeapon;
+      wasSet = true;
     }
+    return wasSet;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setRoom(Room aNewRoom)
+  {
+    boolean wasSet = false;
+    if (aNewRoom != null)
+    {
+      room = aNewRoom;
+      wasSet = true;
+    }
+    return wasSet;
+  }
+  /* Code from template association_SetUnidirectionalOne */
+  public boolean setCharacter(Character aNewCharacter)
+  {
+    boolean wasSet = false;
+    if (aNewCharacter != null)
+    {
+      character = aNewCharacter;
+      wasSet = true;
+    }
+    return wasSet;
+  }
 
-    public Weapon getWeapon() {
-        return weapon;
-    }
+  public void delete()
+  {
+    weapon = null;
+    room = null;
+    character = null;
+  }
 
-    public boolean contains(Card card){
-        return(circumstance.contains(card));
-    }
 }
