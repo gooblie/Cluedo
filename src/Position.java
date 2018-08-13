@@ -43,9 +43,9 @@ public class Position
       case WEST:
         newX--;
       case NORTH:
-        newY++;
-      case SOUTH:
         newY--;
+      case SOUTH:
+        newY++;
     }
     return new Position(newX, newY);
   }

@@ -17,7 +17,6 @@ public class Board
   private char board[][];
 
   //Board Associations
-  private List<Position> positions;
   private List<Room> rooms;
 
   //------------------------
@@ -32,13 +31,6 @@ public class Board
   //------------------------
   // INTERFACE
   //------------------------
-
-
-  public List<Position> getPositions()
-  {
-    List<Position> newPositions = Collections.unmodifiableList(positions);
-    return newPositions;
-  }
 
 
   public List<Room> getRooms()
