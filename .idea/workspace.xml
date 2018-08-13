@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e95cf6f3-0b9d-4174-b5fc-7d133795de93" name="Default" comment="">
+    <list default="true" id="e95cf6f3-0b9d-4174-b5fc-7d133795de93" name="Default" comment="moved board text file to project root">
       <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/board.txt" afterPath="$PROJECT_DIR$/board.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,10 +14,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
+            <state relative-caret-position="-52">
               <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
               <folding>
                 <element signature="e#415#416#0" expanded="true" />
@@ -38,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Board.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Board.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="53" column="3" lean-forward="true" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
+            <state relative-caret-position="221">
+              <caret line="37" column="3" lean-forward="true" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
               <folding>
                 <element signature="e#917#918#0" expanded="true" />
                 <element signature="e#939#940#0" expanded="true" />
@@ -129,10 +128,10 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="45" column="57" lean-forward="false" selection-start-line="45" selection-start-column="57" selection-end-line="45" selection-end-column="57" />
+            <state relative-caret-position="782">
+              <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
               <folding>
-                <marker date="1534150213200" expanded="true" signature="36492:36509" ph="..." />
+                <marker date="1534150374986" expanded="true" signature="37031:37048" ph="..." />
               </folding>
             </state>
           </provider>
@@ -478,7 +477,7 @@
       <option name="presentableId" value="Default" />
       <updated>1534124643023</updated>
       <workItem from="1534124647461" duration="1222000" />
-      <workItem from="1534142418193" duration="7101000" />
+      <workItem from="1534142418193" duration="7242000" />
     </task>
     <task id="LOCAL-00001" summary="Cleaned up code">
       <created>1534125649085</created>
@@ -501,11 +500,25 @@
       <option name="project" value="LOCAL" />
       <updated>1534150120517</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="moved board text file to project root">
+      <created>1534150271875</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1534150271875</updated>
+    </task>
+    <task id="LOCAL-00005" summary="moved board text file to project root">
+      <created>1534150380584</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1534150380584</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8323000" />
+    <option name="totallyTimeSpent" value="8464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="0" width="964" height="1044" extended-state="0" />
@@ -547,7 +560,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Cleaned up code" />
     <MESSAGE value="Cleaned up and added some game logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cleaned up and added some game logic" />
+    <MESSAGE value="moved board text file to project root" />
+    <option name="LAST_COMMIT_MESSAGE" value="moved board text file to project root" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -629,10 +643,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="45" column="57" lean-forward="false" selection-start-line="45" selection-start-column="57" selection-end-line="45" selection-end-column="57" />
+        <state relative-caret-position="782">
+          <caret line="46" column="57" lean-forward="false" selection-start-line="46" selection-start-column="57" selection-end-line="46" selection-end-column="57" />
           <folding>
-            <marker date="1534150213200" expanded="true" signature="36492:36509" ph="..." />
+            <marker date="1534150374986" expanded="true" signature="37031:37048" ph="..." />
           </folding>
         </state>
       </provider>
@@ -666,14 +680,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Call.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="95" column="49" lean-forward="false" selection-start-line="95" selection-start-column="49" selection-end-line="95" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Card.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -698,9 +704,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Board.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="37" column="3" lean-forward="true" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+          <folding>
+            <element signature="e#917#918#0" expanded="true" />
+            <element signature="e#939#940#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Call.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="95" column="49" lean-forward="false" selection-start-line="95" selection-start-column="49" selection-end-line="95" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
+        <state relative-caret-position="-52">
           <caret line="34" column="32" lean-forward="true" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="32" />
           <folding>
             <element signature="e#415#416#0" expanded="true" />
@@ -715,17 +740,6 @@
             <element signature="e#827#828#0" expanded="true" />
             <element signature="e#864#865#0" expanded="true" />
             <element signature="e#890#891#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Board.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="53" column="3" lean-forward="true" selection-start-line="53" selection-start-column="3" selection-end-line="53" selection-end-column="3" />
-          <folding>
-            <element signature="e#917#918#0" expanded="true" />
-            <element signature="e#939#940#0" expanded="true" />
           </folding>
         </state>
       </provider>
