@@ -44,6 +44,13 @@ public class Game {
             String input = read.nextLine();
             numOfPlayers = Integer.parseInt(input);
         }
+        List<GameCharacter> characters = new ArrayList<>();
+        characters.add(new GameCharacter("Miss Scarlett"));
+        characters.add(new GameCharacter("Colonel Mustard"));
+        characters.add(new GameCharacter("Mrs White"));
+        characters.add(new GameCharacter("Mr Green"));
+        characters.add(new GameCharacter("Mrs Peacock"));
+        characters.add(new GameCharacter("Professor Plum"));
         for (int i = 0; i < numOfPlayers; i++) {
 
         }

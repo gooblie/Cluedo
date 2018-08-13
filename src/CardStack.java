@@ -58,7 +58,9 @@ public class CardStack
         //otherwise choose a random weapon
         Random rand = new Random();
         int RandIndex = rand.nextInt(weapons.size());
-        return weapons.get(RandIndex);
+        Weapon weapon = weapons.get(RandIndex);
+        weapons.remove(weapon);
+        return weapon;
     }
 
     public GameCharacter getCharacterCard(){
@@ -71,7 +73,9 @@ public class CardStack
         //otherwise choose a random character
         Random rand = new Random();
         int RandIndex = rand.nextInt(characters.size());
-        return characters.get(RandIndex);
+        GameCharacter character = characters.get(RandIndex);
+        characters.remove(character);
+        return character;
     }
 
     public Room getRoomCard(){
@@ -84,7 +88,9 @@ public class CardStack
         //otherwise choose a random character
         Random rand = new Random();
         int RandIndex = rand.nextInt(rooms.size());
-        return rooms.get(RandIndex);
+        Room room = rooms.get(RandIndex);
+        rooms.remove(room);
+        return room;
     }
 
     public Card getRandCard(){
@@ -93,7 +99,9 @@ public class CardStack
         //otherwise return a random card
         Random rand = new Random();
         int RandIndex = rand.nextInt(cards.size());
-        return cards.get(RandIndex);
+        Card card = cards.get(RandIndex);
+        cards.remove(card);
+        return card;
     }
 
     public List<Card> getCards() {
