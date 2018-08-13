@@ -33,6 +33,13 @@ public class Game
   public void initGame(){
     turn = 1;
     players = new ArrayList<>();
+    new Board("board.txt");
+
+    System.out.println("Welcome to Cluedo!");
+    System.out.println("how many players do you have(3-6)?");
+    Scanner read = new Scanner(System.in);
+    String input = read.nextLine();
+
   }
 
   public void doTurn(){

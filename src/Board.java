@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.Character;
 import java.util.*;
 
 public class Board
@@ -54,6 +55,17 @@ public class Board
         return newRooms;
     }
 
+    public void removeUnecessaryPlayers(int players){
+        for (int i = players+1; i <= 6; i++) {
+            for (int j = 0; j < 25; j++) {
+                for (int k = 0; k < 24; k++) {
+                    if(board[j][k] == Character.forDigit(i, 10)){
+                        board[j][k] = 'x';
+                    }
+                }
+            }
+        }
+    }
 
 
     public boolean isMoveValid(Player player, Direction dir){
