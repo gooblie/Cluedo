@@ -1,10 +1,5 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.28.0.4160.f573280ad modeling language!*/
+import java.util.Objects;
 
-
-
-// line 41 "model.ump"
-// line 100 "model.ump"
 public class Card
 {
 
@@ -44,10 +39,17 @@ public class Card
   public void delete()
   {}
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Card card = (Card) o;
+    return Objects.equals(name, card.name);
+  }
 
-  public String toString()
-  {
-    return super.toString() + "["+
-            "name" + ":" + getName()+ "]";
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(name);
   }
 }

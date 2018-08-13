@@ -30,4 +30,6 @@ public class Weapon extends Card
     super.delete();
   }
 
+
+
 }

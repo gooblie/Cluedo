@@ -1,10 +1,5 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.28.0.4160.f573280ad modeling language!*/
+import java.util.Objects;
 
-
-
-// line 52 "model.ump"
-// line 111 "model.ump"
 public class Call
 {
 
@@ -40,21 +35,25 @@ public class Call
   //------------------------
   // INTERFACE
   //------------------------
+
   /* Code from template association_GetOne */
   public Weapon getWeapon()
   {
     return weapon;
   }
+
   /* Code from template association_GetOne */
   public Room getRoom()
   {
     return room;
   }
+
   /* Code from template association_GetOne */
   public Character getCharacter()
   {
     return character;
   }
+
   /* Code from template association_SetUnidirectionalOne */
   public boolean setWeapon(Weapon aNewWeapon)
   {
@@ -89,11 +88,19 @@ public class Call
     return wasSet;
   }
 
-  public void delete()
-  {
-    weapon = null;
-    room = null;
-    character = null;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Call call = (Call) o;
+    return Objects.equals(weapon, call.weapon) &&
+            Objects.equals(room, call.room) &&
+            Objects.equals(character, call.character);
   }
 
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(weapon, room, character);
+  }
 }

@@ -1,10 +1,4 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.28.0.4160.f573280ad modeling language!*/
 
-
-
-// line 46 "model.ump"
-// line 106 "model.ump"
 public class Position
 {
 
@@ -30,22 +24,6 @@ public class Position
   // INTERFACE
   //------------------------
 
-  public boolean setX(int aX)
-  {
-    boolean wasSet = false;
-    x = aX;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setY(int aY)
-  {
-    boolean wasSet = false;
-    y = aY;
-    wasSet = true;
-    return wasSet;
-  }
-
   public int getX()
   {
     return x;
@@ -56,14 +34,20 @@ public class Position
     return y;
   }
 
-  public void delete()
-  {}
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "x" + ":" + getX()+ "," +
-            "y" + ":" + getY()+ "]";
+  public Position move(Board.Direction direction){
+    int newX = this.x;
+    int newY = this.y;
+    switch (direction){
+      case EAST:
+        newX++;
+      case WEST:
+        newX--;
+      case NORTH:
+        newY++;
+      case SOUTH:
+        newY--;
+    }
+    return new Position(newX, newY);
   }
+
 }
