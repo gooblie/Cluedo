@@ -8,10 +8,10 @@ public class Room {
 
     private Position Exit;
 
-    public Room(String name, List<Position> positions){
+    public Room(String name, List<Position> positions, Position exit){
         this.name = name;
         this.entrances = positions;
-        this.Exit = entrances.get(0);
+        this.Exit = exit;
     }
 
     public String getName() {
