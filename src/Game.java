@@ -36,21 +36,9 @@ public class Game {
         turn = 1;
         players = new ArrayList<>();
         board =new Board("board.txt", this);
-        cardStack = new CardStack(this);
+        Scanner read = new Scanner(System.in);
 
-        //init envelope:
-        envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
-        System.out.println("Welcome to Cluedo!");
-
-        //select players:
-        int numOfPlayers = 0;
-        while(3 > numOfPlayers || numOfPlayers > 6){
-            System.out.println("how many players do you have? (3-6)");
-            Scanner read = new Scanner(System.in);
-            String input = read.nextLine();
-            numOfPlayers = Integer.parseInt(input);
-        }
-
+        //characters:
         characters = new ArrayList<>();
         characters.add(new CharacterCard("Miss Scarlett"));
         characters.add(new CharacterCard("Col. Mustard"));
@@ -58,31 +46,6 @@ public class Game {
         characters.add(new CharacterCard("Mr. Green"));
         characters.add(new CharacterCard("Mrs. Peacock"));
         characters.add(new CharacterCard("Prof. Plum"));
-
-        for (int i = 1; i <= numOfPlayers; i++) {
-            System.out.println("Player "+(i)+" - Please select a name:");
-            for (int j = 0; j < characters.size(); j++) {
-                System.out.println(j+": "+characters.get(j).getName());
-            }
-            int characterNumber = -1;
-            while(0 > characterNumber || characterNumber > characters.size()){
-                Scanner read = new Scanner(System.in);
-                String input = read.nextLine();
-                characterNumber = Integer.parseInt(input);
-            }
-            String name = characters.get(characterNumber).getName();
-            characters.remove(characterNumber);
-            Player player = new Player(name, i, board.getStartPosition(name));
-            players.add(player);
-        }
-
-        //deal hand to players:
-        int i = 0;
-        while(cardStack.hasCard()){
-            if(i>=players.size()){i=0;}
-            players.get(i++).addCard(cardStack.getRandCard());
-        }
-
         //weapons:
         weapons.add(new WeaponCard("Candlestick"));
         weapons.add(new WeaponCard("Dagger"));
@@ -101,11 +64,79 @@ public class Game {
         roomCards.add(new RoomCard("Study"));
         roomCards.add(new RoomCard("Hall"));
 
+        cardStack = new CardStack(this);
+
+        //init envelope:
+        envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
+
+        //select players:
+        System.out.println("Welcome to Cluedo!");
+        int numOfPlayers = 0;
+        while(3 > numOfPlayers || numOfPlayers > 6){
+            System.out.println("how many players do you have? (3-6)");
+
+            String input = read.nextLine();
+            numOfPlayers = Integer.parseInt(input);
+        }
+        for (int i = 1; i <= numOfPlayers; i++) {
+            System.out.println("Player "+(i)+" - Please select a name:");
+            for (int j = 0; j < characters.size(); j++) {
+                System.out.println(j+": "+characters.get(j).getName());
+            }
+            int characterNumber = -1;
+            while(0 > characterNumber || characterNumber > characters.size()){
+                String input = read.nextLine();
+                characterNumber = Integer.parseInt(input);
+            }
+            String name = characters.get(characterNumber).getName();
+            characters.remove(characterNumber);
+            Player player = new Player(name, i, board.getStartPosition(name));
+            players.add(player);
+        }
+        read.close();
+        board.initPlayers();
+        board.initRooms();
+
+        //deal hand to players:
+        int i = 0;
+        while(cardStack.hasCard()){
+            if(i>=players.size()){i=0;}
+            players.get(i++).addCard(cardStack.getRandCard());
+        }
+
+
+
+
     }
 
-    public void doTurn() {
-
-        //TODO
+    public void doTurn(Player player) {
+        Scanner read = new Scanner(System.in);
+        Random rand = new Random();
+        int dice1 = rand.nextInt(7)+1;
+        int dice2 = rand.nextInt(7)+1;
+        int moves = dice1+dice2;
+        for (int i = 0; i < moves ; i++) {
+            //if a player is in a room then the only way they can move is exit
+            if(player.getRoom() != null){
+                System.out.println("You are in the "+player.getRoom().getName());
+                System.out.println("0: Make a suggestion");
+                System.out.println("1: Leave the room");
+                int answer = -1;
+                while(0 > answer || answer > 1){
+                    String input = read.nextLine();
+                    answer = Integer.parseInt(input);
+                }
+                if(answer == 1){
+                    player.leaveRoom();
+                }
+                if(answer == 0){
+                    player.suggest(envelope);
+                    break;
+                }
+            }
+            //TODO: ASK WHAT DIRECTION THEY SHOULD MOVE IN AND MOVE IN THAT DIR
+        }
+        //TODO: AT THE END OF TURN ASK IF THEY WANT TO MAKE AN ACCUSATION
     }
 
     public void doWin(Player player) {
@@ -147,7 +178,7 @@ public class Game {
     public static void main(String[] args) {
         Game game = new Game();
         while (!game.isWon()) {
-            game.doTurn();
+            //TODO: determine which players turn it is and doTurn(Player)
         }
     }
 

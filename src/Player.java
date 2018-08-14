@@ -10,6 +10,7 @@ public class Player {
     private String name;
     private int num;
     private Position position;
+    private Room room;
 
     //Player Associations
     private List<Card> cards;
@@ -22,6 +23,7 @@ public class Player {
         name = aName;
         num = aNum;
         position = aPosition;
+        room = null;
     }
 
     //------------------------
@@ -42,22 +44,32 @@ public class Player {
         return newCards;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     public void addCard(Card card){
         cards.add(card);
     }
 
-    public boolean suggest(Call call) {
+    public boolean suggest(Call envelope) {
+        //TODO: ask user for weapon, room, character and create call to compare to envolope
+        return false;
+    }
+
+    public boolean accuse(Call envelope) {
         //TODO
         return false;
     }
 
-    public boolean accuse(Call call) {
-        //TODO
-        return false;
+    public void leaveRoom(){
+        if(room == null){return;}
+        //TODO: change players position to room exit
+
+        room = null;
     }
-
-    public void move() {
-
-    }
-
 }
