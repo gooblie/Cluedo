@@ -46,8 +46,6 @@ public class Board
             e.printStackTrace();
         }
 
-        //TODO: initialise startPositions map
-
         startPositions.put("Mrs. White", new Position(9, 0));
         startPositions.put("Mr. Green", new Position(14, 0));
         startPositions.put("Mrs. Peacock", new Position(23, 6));

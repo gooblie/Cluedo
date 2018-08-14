@@ -5,7 +5,7 @@ KKKKKK  BBBBBBBB  CCCCCC
 KKKKKK  BBBBBBBB  *CCCCC
 KKKKKK  *BBBBBB*   CCCCC
 KKKK*K  BBBBBBBB
-        BnBBBBnB       x
+        B*BBBB*B       x
 x                 IIIIII
 NNNNN             *IIIII
 NNNNNNNN  xxxxx   IIIIII
