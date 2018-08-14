@@ -53,11 +53,12 @@ public class Game {
 
         characters = new ArrayList<>();
         characters.add(new CharacterCard("Miss Scarlett"));
-        characters.add(new CharacterCard("Colonel Mustard"));
-        characters.add(new CharacterCard("Mrs White"));
-        characters.add(new CharacterCard("Mr Green"));
-        characters.add(new CharacterCard("Mrs Peacock"));
-        characters.add(new CharacterCard("Professor Plum"));
+        characters.add(new CharacterCard("Col. Mustard"));
+        characters.add(new CharacterCard("Mrs. White"));
+        characters.add(new CharacterCard("Mr. Green"));
+        characters.add(new CharacterCard("Mrs. Peacock"));
+        characters.add(new CharacterCard("Prof. Plum"));
+
         for (int i = 1; i <= numOfPlayers; i++) {
             System.out.println("Player "+(i)+" - Please select a name:");
             for (int j = 0; j < characters.size(); j++) {
@@ -71,7 +72,7 @@ public class Game {
             }
             String name = characters.get(characterNumber).getName();
             characters.remove(characterNumber);
-            Player player = new Player(name, i);
+            Player player = new Player(name, i, board.getStartPosition(name));
             players.add(player);
         }
 
@@ -104,6 +105,7 @@ public class Game {
 
     public void doTurn() {
 
+        //TODO
     }
 
     public void doWin(Player player) {

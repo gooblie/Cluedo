@@ -9,6 +9,7 @@ public class Player {
     //Player Attributes
     private String name;
     private int num;
+    private Position position;
 
     //Player Associations
     private List<Card> cards;
@@ -17,9 +18,10 @@ public class Player {
     // CONSTRUCTOR
     //------------------------
 
-    public Player(String aName, int aNum) {
+    public Player(String aName, int aNum, Position aPosition) {
         name = aName;
         num = aNum;
+        position = aPosition;
     }
 
     //------------------------

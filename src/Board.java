@@ -18,6 +18,7 @@ public class Board
 
     //Board Attributes
     private char board[][];
+    private Map<String, Position> startPositions;
 
     //Board Associations
     private List<Room> rooms;
@@ -44,6 +45,15 @@ public class Board
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        //TODO: initialise startPositions map
+
+        startPositions.put("Mrs. White", new Position(9, 0));
+        startPositions.put("Mr. Green", new Position(14, 0));
+        startPositions.put("Mrs. Peacock", new Position(23, 6));
+        startPositions.put("Prof. Plum", new Position(23, 19));
+        startPositions.put("Miss Scarlett", new Position(7, 24));
+        startPositions.put("Col. Mustard", new Position(0, 17));
 
         //TODO: initialise room objects with names and positions of entrances
     }
@@ -72,7 +82,24 @@ public class Board
     }
 
     public boolean isMoveValid(Player player, Direction dir){
+        //TODO:
         return false;
+    }
+
+    public Position getStartPosition(String characterName){
+        return startPositions.get(characterName);
+    }
+
+    public void move(Player player, Direction dir){
+        //TODO: change board state to reflect moved player positions
+        //TODO: put players in rooms if they're at room positions
+    }
+
+    public void print(){
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0; j < 24; j++) {
+            }
+        }
     }
 
 }
