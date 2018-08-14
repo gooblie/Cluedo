@@ -101,7 +101,7 @@ public class Board
         ArrayList<Position> loungeEntrances = new ArrayList<>();
         loungeEntrances.add(new Position(6, 19));
         Position loungeExit = new Position(6, 18);
-        rooms.add(new Room("Billiard Room", loungeEntrances, loungeExit));
+        rooms.add(new Room("Lounge", loungeEntrances, loungeExit));
 
         //Construct Hall
         ArrayList<Position> hallEntrances = new ArrayList<>();
@@ -109,13 +109,13 @@ public class Board
         hallEntrances.add(new Position(12, 18));
         hallEntrances.add(new Position(14, 20));
         Position hallExit = new Position(15, 20);
-        rooms.add(new Room("Billiard Room", hallEntrances, hallExit));
+        rooms.add(new Room("Hall", hallEntrances, hallExit));
 
         //Construct Study
         ArrayList<Position> studyEntrances = new ArrayList<>();
         studyEntrances.add(new Position(17, 21));
         Position studyExit = new Position(17, 20);
-        rooms.add(new Room("Billiard Room", studyEntrances, studyExit));
+        rooms.add(new Room("Study", studyEntrances, studyExit));
     }
 
     //------------------------
