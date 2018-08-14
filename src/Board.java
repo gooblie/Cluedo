@@ -53,7 +53,69 @@ public class Board
         startPositions.put("Miss Scarlett", new Position(7, 24));
         startPositions.put("Col. Mustard", new Position(0, 17));
 
-        //TODO: initialise room objects with names and positions of entrances
+        rooms = new ArrayList<>();
+
+        //Construct Kitchen
+        ArrayList<Position> kitchenEntrances = new ArrayList<>();
+        kitchenEntrances.add(new Position(4, 6));
+        Position kitchenExit = new Position(4, 7);
+        rooms.add(new Room("Kitchen", kitchenEntrances, kitchenExit));
+
+        //Construct Ball Room
+        ArrayList<Position> ballRoomEntrances = new ArrayList<>();
+        ballRoomEntrances.add(new Position(8, 5));
+        ballRoomEntrances.add(new Position(15, 5));
+        ballRoomEntrances.add(new Position(9, 7));
+        ballRoomEntrances.add(new Position(14, 7));
+        Position ballRoomExit = new Position(14, 8);
+        rooms.add(new Room("Ball Room", ballRoomEntrances, ballRoomExit));
+
+        //Construct Conservatory
+        ArrayList<Position> conservatoryEntrances = new ArrayList<>();
+        conservatoryEntrances.add(new Position(18, 4));
+        Position conservatoryExit = new Position(17, 4);
+        rooms.add(new Room("Conservatory", conservatoryEntrances, conservatoryExit));
+
+        //Construct Dining Room
+        ArrayList<Position> diningRoomEntrances = new ArrayList<>();
+        diningRoomEntrances.add(new Position(7, 12));
+        diningRoomEntrances.add(new Position(6, 15));
+        Position diningRoomExit = new Position(6, 16);
+        rooms.add(new Room("Dining Room", diningRoomEntrances, diningRoomExit));
+
+        //Construct Billiard Room
+        ArrayList<Position> billiardRoomEntrances = new ArrayList<>();
+        billiardRoomEntrances.add(new Position(18, 9));
+        billiardRoomEntrances.add(new Position(22, 12));
+        Position billiardRoomExit = new Position(17, 9);
+        rooms.add(new Room("Billiard Room", billiardRoomEntrances, billiardRoomExit));
+
+        //Construct Library
+        ArrayList<Position> libraryEntrances = new ArrayList<>();
+        libraryEntrances.add(new Position(20, 14));
+        libraryEntrances.add(new Position(17, 16));
+        Position libraryExit = new Position(16, 16);
+        rooms.add(new Room("Library", libraryEntrances, libraryExit));
+
+        //Construct Lounge
+        ArrayList<Position> loungeEntrances = new ArrayList<>();
+        loungeEntrances.add(new Position(6, 19));
+        Position loungeExit = new Position(6, 18);
+        rooms.add(new Room("Billiard Room", loungeEntrances, loungeExit));
+
+        //Construct Hall
+        ArrayList<Position> hallEntrances = new ArrayList<>();
+        hallEntrances.add(new Position(11, 18));
+        hallEntrances.add(new Position(12, 18));
+        hallEntrances.add(new Position(14, 20));
+        Position hallExit = new Position(15, 20);
+        rooms.add(new Room("Billiard Room", hallEntrances, hallExit));
+
+        //Construct Study
+        ArrayList<Position> studyEntrances = new ArrayList<>();
+        studyEntrances.add(new Position(17, 21));
+        Position studyExit = new Position(17, 20);
+        rooms.add(new Room("Billiard Room", studyEntrances, studyExit));
     }
 
     //------------------------

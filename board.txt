@@ -10,7 +10,7 @@ x                 IIIIII
 NNNNN             *IIIII
 NNNNNNNN  xxxxx   IIIIII
 NNNNNNNN  xxxxx   IIIIII
-NNNNNNNN  xxxxx   IIIInI
+NNNNNNN*  xxxxx   IIII*I
 NNNNNNNN  xxxxx        x
 NNNNNNNN  xxxxx   LL*LLx
 NNNNNN*N  xxxxx  LLLLLLL
