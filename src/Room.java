@@ -4,21 +4,22 @@ public class Room {
 
     private String name;
     private List<Player> players;
-    private List<Position> positions;
-    private Position defaultExit;
+    private List<Position> entrances;
 
-    public Room(String name, List<Position> positions, Position defaultExit){
+    private Position Exit;
+
+    public Room(String name, List<Position> positions){
         this.name = name;
-        this.positions = positions;
-        this.defaultExit = defaultExit;
+        this.entrances = positions;
+        this.Exit = entrances.get(0);
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Position> getPositions() {
-        return positions;
+    public List<Position> getEntrances() {
+        return entrances;
     }
 
     public List<Player> getPlayers() {
@@ -27,5 +28,9 @@ public class Room {
 
     public void addPlayer(Player player){
         players.add(player);
+    }
+
+    public Position getExit() {
+        return Exit;
     }
 }
