@@ -48,7 +48,7 @@ public class Player {
         cards.add(card);
     }
 
-    public Call suggest(Game game, Call call) {
+    public Call suggest(Game game) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please select a character to suggest:");
         for (int j = 0; j < game.getPlayers().size(); j++) {
@@ -88,9 +88,45 @@ public class Player {
         return new Call(weapSuggestion, roomSuggestion, charSuggestion);
     }
 
-    public boolean accuse(Call call) {
-        //TODO
-        return false;
+    public Call accuse(Game game) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please select a character to suggest:");
+        for (int j = 0; j < game.getPlayers().size(); j++) {
+            System.out.println(j+": "+game.getPlayers().get(j).getName());
+        }
+        int playerNumber = -1;
+        while(0 > playerNumber || playerNumber > game.getPlayers().size()){
+            String input = scan.nextLine();
+            playerNumber = Integer.parseInt(input);
+        }
+        String playerName = game.getPlayers().get(playerNumber).getName();
+        CharacterCard charSuggestion = new CharacterCard(playerName);
+
+        System.out.println("Please select a weapon to suggest:");
+        for (int j = 0; j < game.getWeapons().size(); j++) {
+            System.out.println(j+": "+game.getWeapons().get(j).getName());
+        }
+        int weaponNumber = -1;
+        while(0 > weaponNumber || weaponNumber > game.getWeapons().size()){
+            String input = scan.nextLine();
+            weaponNumber = Integer.parseInt(input);
+        }
+        String weapName = game.getWeapons().get(weaponNumber).getName();
+        WeaponCard weapSuggestion = new WeaponCard(weapName);
+
+        System.out.println("Please select a weapon to suggest:");
+        for (int j = 0; j < game.getRoomCards().size(); j++) {
+            System.out.println(j+": "+game.getRoomCards().get(j).getName());
+        }
+        int roomNumber = -1;
+        while(0 > roomNumber || roomNumber > game.getRoomCards().size()){
+            String input = scan.nextLine();
+            roomNumber = Integer.parseInt(input);
+        }
+        String roomName = game.getRoomCards().get(roomNumber).getName();
+        RoomCard roomSuggestion = new RoomCard(roomName);
+
+        return new Call(weapSuggestion, roomSuggestion, charSuggestion);
     }
 
     public Position getPosition() {

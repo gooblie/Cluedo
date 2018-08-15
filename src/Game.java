@@ -142,7 +142,7 @@ public class Game {
                     board.print();
                 }
                 if(answer == 0){
-                    Call suggestion = player.suggest(this, envelope);
+                    Call suggestion = player.suggest(this);
                     System.out.println("A suggestion has been made!");
                     System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
                     + " did the murder with a " + suggestion.getWeaponCard().getName() + " in the " + suggestion.getRoom().getName() + "!");
