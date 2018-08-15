@@ -168,10 +168,12 @@ public class Board
         Position newPosition = player.getPosition().move(dir);
         if(newPosition.getY() > 24 || newPosition.getX() > 23 || newPosition.getY() < 0 || newPosition.getX() < 0){
             System.out.println("Cannot move out of bounds!");
+            System.out.println();
             return false;
         }
         if(getCharFromPosition(newPosition) != ' ' && getCharFromPosition(newPosition) != '*'){
             System.out.println("Can only move to blank spaces or asterisks!");
+            System.out.println();
             return false;
         }
         return true;
@@ -179,6 +181,14 @@ public class Board
 
     public Position getStartPosition(String characterName){
         return startPositions.get(characterName);
+    }
+
+    public void setPlayerPosition(Player player){
+        board[player.getPosition().getY()][player.getPosition().getX()] = Character.forDigit(player.getNum(), 10);
+    }
+
+    public void removePlayer(Player player){
+        board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
     }
 
     public void move(Player player, Direction dir){
@@ -221,6 +231,7 @@ public class Board
                 System.out.print(board[j][i]);
             }
         }
+        System.out.println();
         System.out.println();
     }
 }

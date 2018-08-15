@@ -51,17 +51,17 @@ public class Player {
     public Call suggest(Game game) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please select a character to suggest:");
-        for (int j = 0; j < game.getPlayersInGame().size(); j++) {
-            System.out.println(j+": "+game.getPlayersInGame().get(j).getName());
+        int i = 0;
+        for (Player p: game.getAllPlayers()) {
+            System.out.println(i++ + ": " + p.getName());
         }
         int playerNumber = -1;
-        while(0 > playerNumber || playerNumber > game.getPlayersInGame().size()){
+        while(0 > playerNumber || playerNumber > game.getAllPlayers().size()){
             String input = scan.nextLine();
             playerNumber = Integer.parseInt(input);
         }
-        String playerName = game.getPlayersInGame().get(playerNumber).getName();
+        String playerName = game.getAllPlayers().get(playerNumber).getName();
         CharacterCard charSuggestion = new CharacterCard(playerName);
-
         System.out.println("Please select a weapon to suggest:");
         for (int j = 0; j < game.getWeapons().size(); j++) {
             System.out.println(j+": "+game.getWeapons().get(j).getName());
@@ -82,6 +82,7 @@ public class Player {
         //check if player is in room, moving it to room if not
         if(game.getPlayersInGame().get(playerNumber).getRoom() != this.getRoom()){
             this.getRoom().addPlayer(game.getPlayersInGame().get(playerNumber));
+            game.getBoard().removePlayer(game.getPlayersInGame().get(playerNumber));
         }
 
         RoomCard roomSuggestion = new RoomCard(this.getRoom().getName());
