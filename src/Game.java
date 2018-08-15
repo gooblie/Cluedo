@@ -161,7 +161,12 @@ public class Game {
             }
         }
         if(player.getRoom() == null) {
-            System.out.println("Player " + player.getNum() + ": It is your turn and you are currently in the corridors!");
+            System.out.println("Player " + player.getNum() + ": Your current cards are:");
+            for (Card card : player.getCards()) {
+                System.out.println(card.getName());
+            }
+            System.out.println();
+            System.out.println("It is your turn and you are currently in the corridors!");
             System.out.println("You rolled a " + roll + "!");
         }
         System.out.println();
@@ -169,6 +174,12 @@ public class Game {
             //if a player is in a room then the only way they can move is exit
             if (player.getRoom() != null){
                 System.out.println("Player " + player.getNum() + ": You are in the " + player.getRoom().getName());
+                System.out.println();
+                System.out.println("Your current cards are: ");
+                for (Card card : player.getCards()) {
+                    System.out.println(card.getName());
+                }
+                System.out.println();
                 System.out.println("0: Make a suggestion");
                 System.out.println("1: Leave the room");
                 int answer = -1;
@@ -183,7 +194,6 @@ public class Game {
                     board.print();
                     continue;
                 }
-
                 Call suggestion = player.suggest(this);
                 System.out.println("A suggestion has been made!");
                 System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
