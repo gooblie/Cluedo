@@ -203,6 +203,7 @@ public class Game {
                     }
                     if (refuters.isEmpty()) {
                         System.out.println("No one refuted this suggestion");
+                        System.out.println();
                         suggestions.add(suggestion);
                     } else {
                         for (Player p : refuters.keySet()) {
