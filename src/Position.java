@@ -35,12 +35,16 @@ public class Position {
         switch (direction) {
             case EAST:
                 newX++;
+                break;
             case WEST:
                 newX--;
+                break;
             case NORTH:
                 newY--;
+                break;
             case SOUTH:
                 newY++;
+                break;
         }
         return new Position(newX, newY);
     }

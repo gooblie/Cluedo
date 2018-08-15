@@ -146,8 +146,12 @@ public class Board
 
     public boolean isMoveValid(Player player, Direction dir){
         Position newPosition = player.getPosition().move(dir);
-        if(newPosition.getY() > 24 || newPosition.getX() > 23) return false;
-        if(getCharFromPosition(newPosition) != ' ' && getCharFromPosition(newPosition) != '*') return false;
+        if(newPosition.getY() > 24 || newPosition.getX() > 23){
+            return false;
+        }
+        if(getCharFromPosition(newPosition) != ' ' && getCharFromPosition(newPosition) != '*'){
+            return false;
+        }
         return true;
     }
 
@@ -157,7 +161,9 @@ public class Board
 
     public void move(Player player, Direction dir){
         //TODO: change board state to reflect moved player positions
-        if(!isMoveValid(player, dir)) return;
+        if(!isMoveValid(player, dir)) {
+            return;
+        }
         Position newPosition = player.getPosition().move(dir);
         if(getCharFromPosition(newPosition) == ' ') {
             board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
