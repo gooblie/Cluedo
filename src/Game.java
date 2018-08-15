@@ -10,10 +10,9 @@ public class Game {
     private int turn;
     private Call envelope;
     private boolean won;
-    List<CharacterCard> characters;
-    List<RoomCard> roomCards;
-    List<WeaponCard> weapons;
-
+    private List<CharacterCard> characters;
+    private List<RoomCard> rooms;
+    private List<WeaponCard> weapons;
 
     //Game Associations
     private Board board;
@@ -35,7 +34,7 @@ public class Game {
     public void initGame() {
         turn = 1;
         players = new ArrayList<>();
-        board =new Board("board.txt", this);
+        board = new Board("board.txt", this);
         Scanner read = new Scanner(System.in);
 
         //characters:
@@ -47,6 +46,7 @@ public class Game {
         characters.add(new CharacterCard("Mrs. Peacock"));
         characters.add(new CharacterCard("Prof. Plum"));
         //weapons:
+        weapons = new ArrayList<>();
         weapons.add(new WeaponCard("Candlestick"));
         weapons.add(new WeaponCard("Dagger"));
         weapons.add(new WeaponCard("Lead Pipe"));
@@ -54,15 +54,16 @@ public class Game {
         weapons.add(new WeaponCard("Rope"));
         weapons.add(new WeaponCard("Spanner"));
         //roomCards:
-        roomCards.add(new RoomCard("Kitchen"));
-        roomCards.add(new RoomCard("Ballroom"));
-        roomCards.add(new RoomCard("Conservatory"));
-        roomCards.add(new RoomCard("Dining room"));
-        roomCards.add(new RoomCard("Lounge"));
-        roomCards.add(new RoomCard("Billiard room"));
-        roomCards.add(new RoomCard("Library"));
-        roomCards.add(new RoomCard("Study"));
-        roomCards.add(new RoomCard("Hall"));
+        rooms = new ArrayList<>();
+        rooms.add(new RoomCard("Kitchen"));
+        rooms.add(new RoomCard("Ballroom"));
+        rooms.add(new RoomCard("Conservatory"));
+        rooms.add(new RoomCard("Dining room"));
+        rooms.add(new RoomCard("Lounge"));
+        rooms.add(new RoomCard("Billiard room"));
+        rooms.add(new RoomCard("Library"));
+        rooms.add(new RoomCard("Study"));
+        rooms.add(new RoomCard("Hall"));
 
         cardStack = new CardStack(this);
 
@@ -72,6 +73,7 @@ public class Game {
         //select players:
         System.out.println("Welcome to Cluedo!");
         int numOfPlayers = 0;
+        board.initPlayerStart();
         while(3 > numOfPlayers || numOfPlayers > 6){
             System.out.println("how many players do you have? (3-6)");
 
@@ -94,7 +96,7 @@ public class Game {
             players.add(player);
         }
         read.close();
-        board.initPlayers();
+        board.initBoardPlayerStart();
         board.initRooms();
 
         //deal hand to players:
@@ -103,10 +105,16 @@ public class Game {
             if(i>=players.size()){i=0;}
             players.get(i++).addCard(cardStack.getRandCard());
         }
+        this.board.print();
+        while(true) {
+            initTurn();
+        }
+    }
 
-
-
-
+    public void initTurn(){
+        int i = 0;
+        if(i>=players.size()){i=0;}
+        doTurn(players.get(i++));
     }
 
     public void doTurn(Player player) {
@@ -135,6 +143,39 @@ public class Game {
                 }
             }
             //TODO: ASK WHAT DIRECTION THEY SHOULD MOVE IN AND MOVE IN THAT DIR
+            System.out.println("Player " + player.getNum() + ": It is your turn and you are currently in the corridors!");
+            System.out.println("You rolled a " + moves + "!");
+            System.out.println("Which direction do you want to move?");
+            System.out.println("0: North");
+            System.out.println("1: East");
+            System.out.println("2: South");
+            System.out.println("3: West");
+            int answer = -1;
+            while (0 > answer || answer > 3) {
+                if(read.hasNextLine()) {
+                    String input = read.nextLine();
+                    answer = Integer.parseInt(input);
+                }
+            }
+            switch (answer) {
+                case 0:
+                    player.setPosition(player.getPosition().move(Board.Direction.NORTH));
+                    board.move(player, Board.Direction.NORTH);
+                    break;
+                case 1:
+                    player.setPosition(player.getPosition().move(Board.Direction.EAST));
+                    board.move(player, Board.Direction.EAST);
+                    break;
+                case 2:
+                    player.setPosition(player.getPosition().move(Board.Direction.SOUTH));
+                    board.move(player, Board.Direction.SOUTH);
+                    break;
+                case 3:
+                    player.setPosition(player.getPosition().move(Board.Direction.WEST));
+                    board.move(player, Board.Direction.WEST);
+                    board.print();
+                    break;
+            }
         }
         //TODO: AT THE END OF TURN ASK IF THEY WANT TO MAKE AN ACCUSATION
     }
@@ -168,7 +209,7 @@ public class Game {
     }
 
     public List<RoomCard> getRoomCards() {
-        return roomCards;
+        return rooms;
     }
 
     public List<WeaponCard> getWeapons() {
@@ -181,5 +222,4 @@ public class Game {
             //TODO: determine which players turn it is and doTurn(Player)
         }
     }
-
 }

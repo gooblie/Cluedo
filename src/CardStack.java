@@ -17,13 +17,14 @@ public class CardStack
 
     public CardStack(Game game)
     {
+        this.game = game;
         cards = new ArrayList<Card>();
         //characters:
-        cards.addAll(game.getCharacters());
+        cards.addAll(this.game.getCharacters());
         //weapons:
-        cards.addAll(game.getWeapons());
+        cards.addAll(this.game.getWeapons());
         //roomCards:
-        cards.addAll(game.getRoomCards());
+        cards.addAll(this.game.getRoomCards());
     }
 
     //------------------------

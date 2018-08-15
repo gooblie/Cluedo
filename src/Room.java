@@ -12,6 +12,7 @@ public class Room {
         this.name = name;
         this.entrances = positions;
         this.Exit = exit;
+        this.players = new ArrayList<>();
     }
 
     public String getName() {
@@ -28,6 +29,10 @@ public class Room {
 
     public void addPlayer(Player player){
         players.add(player);
+    }
+
+    public void removePlayer(Player player){
+        players.remove(player);
     }
 
     public Position getExit() {

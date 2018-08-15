@@ -23,7 +23,7 @@ public class Player {
         name = aName;
         num = aNum;
         position = aPosition;
-        room = null;
+        cards = new ArrayList<>();
     }
 
     //------------------------
@@ -44,6 +44,28 @@ public class Player {
         return newCards;
     }
 
+    public void addCard(Card card){
+        cards.add(card);
+    }
+
+    public boolean suggest(Call call) {
+        //TODO
+        return false;
+    }
+
+    public boolean accuse(Call call) {
+        //TODO
+        return false;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public Room getRoom() {
         return room;
     }
@@ -52,24 +74,14 @@ public class Player {
         this.room = room;
     }
 
-    public void addCard(Card card){
-        cards.add(card);
-    }
-
-    public boolean suggest(Call envelope) {
-        //TODO: ask user for weapon, room, character and create call to compare to envolope
-        return false;
-    }
-
-    public boolean accuse(Call envelope) {
-        //TODO
-        return false;
-    }
-
     public void leaveRoom(){
-        if(room == null){return;}
-        //TODO: change players position to room exit
-
-        room = null;
+        this.setPosition(this.room.getExit());
+        this.room.removePlayer(this);
+        this.setRoom(null);
     }
+
+    public void move() {
+
+    }
+
 }

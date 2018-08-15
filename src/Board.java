@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Board
 {
-
     //------------------------
     // ENUMERATIONS
     //------------------------
@@ -45,14 +44,19 @@ public class Board
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
+    public void initPlayerStart(){
+        startPositions = new HashMap<>();
         startPositions.put("Mrs. White", new Position(9, 0));
         startPositions.put("Mr. Green", new Position(14, 0));
         startPositions.put("Mrs. Peacock", new Position(23, 6));
         startPositions.put("Prof. Plum", new Position(23, 19));
         startPositions.put("Miss Scarlett", new Position(7, 24));
         startPositions.put("Col. Mustard", new Position(0, 17));
+    }
 
+    public void initRooms(){
         rooms = new ArrayList<>();
 
         //Construct Kitchen
@@ -118,6 +122,12 @@ public class Board
         rooms.add(new Room("Study", studyEntrances, studyExit));
     }
 
+    public void initBoardPlayerStart(){
+        for(Player p : game.getPlayers()){
+           board[getStartPosition(p.getName()).getY()][getStartPosition(p.getName()).getX()] = Character.forDigit(p.getNum(), 10);
+        }
+    }
+
     //------------------------
     // INTERFACE
     //------------------------
@@ -129,21 +139,15 @@ public class Board
         return newRooms;
     }
 
-    public void removeUnecessaryPlayers(int players){
-        for (int i = players+1; i <= 6; i++) {
-            for (int j = 0; j < 25; j++) {
-                for (int k = 0; k < 24; k++) {
-                    if(board[j][k] == Character.forDigit(i, 10)){
-                        board[j][k] = 'x';
-                    }
-                }
-            }
-        }
+    public char getCharFromPosition(Position pos){
+        return board[pos.getY()][pos.getX()];
     }
 
     public boolean isMoveValid(Player player, Direction dir){
-        //TODO:
-        return false;
+        Position newPosition = player.getPosition().move(dir);
+        if(newPosition.getY() > 24 || newPosition.getX() > 23) return false;
+        if(getCharFromPosition(newPosition) != ' ' && getCharFromPosition(newPosition) != '*') return false;
+        return true;
     }
 
     public Position getStartPosition(String characterName){
@@ -152,15 +156,33 @@ public class Board
 
     public void move(Player player, Direction dir){
         //TODO: change board state to reflect moved player positions
-        //TODO: put players in rooms if they're at room positions
-    }
+        if(!isMoveValid(player, dir)) return;
+        Position newPosition = player.getPosition().move(dir);
+        if(getCharFromPosition(newPosition) == ' ') {
+            board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
+            board[newPosition.getY()][newPosition.getX()] = Character.forDigit(player.getNum(), 10);
+            player.setPosition(newPosition);
+        }
 
-    public void print(){
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 24; j++) {
-                //TODO print board
+        //TODO: put players in rooms if they're at room positions
+        else{
+            board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
+            for(Room room : rooms){
+                if(room.getEntrances().contains(newPosition)){
+                    player.setRoom(room);
+                    room.addPlayer(player);
+                }
             }
         }
     }
 
+    public void print(){
+        for (int j = 0; j < 25; j++) {
+            System.out.println();
+            for (int i = 0; i < 24; i++) {
+                System.out.print(board[j][i]);
+            }
+        }
+        System.out.println();
+    }
 }
