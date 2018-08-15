@@ -99,6 +99,14 @@ public class Call
     }
 
     @Override
+    public boolean contains(Card c) {
+        if (c == null) return false;
+        return weaponCard.equals(c) ||
+                room.equals(c) ||
+                character.equals(c);
+    }
+
+    @Override
     public int hashCode() {
 
         return Objects.hash(weaponCard, room, character);
