@@ -4,7 +4,7 @@ public class CharacterCard extends Card
     //------------------------
     // MEMBER VARIABLES
     //------------------------
-
+    private Room room;
     //------------------------
     // CONSTRUCTOR
     //------------------------
@@ -17,6 +17,15 @@ public class CharacterCard extends Card
     //------------------------
     // INTERFACE
     //------------------------
+
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
     public void delete()
     {

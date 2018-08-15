@@ -3,7 +3,7 @@ public class WeaponCard extends Card {
     //------------------------
     // MEMBER VARIABLES
     //------------------------
-
+    public Room room;
     //------------------------
     // CONSTRUCTOR
     //------------------------
@@ -15,6 +15,15 @@ public class WeaponCard extends Card {
     //------------------------
     // INTERFACE
     //------------------------
+
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
 
     public void delete() {
         super.delete();

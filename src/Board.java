@@ -21,6 +21,7 @@ public class Board
 
     //Board Associations
     private List<Room> rooms;
+    private List<WeaponCard> weapons;
     private Game game;
 
     //------------------------
@@ -128,6 +129,23 @@ public class Board
         }
     }
 
+    public void initWeapons(List<WeaponCard> weapons){
+        this.weapons = weapons;
+        List<Room> tempRooms = new ArrayList<>();
+        tempRooms.addAll(rooms);
+        Random rand = new Random();
+        while(weapons.size() > 0){
+            int randRoomIndex = rand.nextInt(tempRooms.size());
+            int randWeaponIndex = rand.nextInt(this.weapons.size());
+            WeaponCard weapon = this.weapons.get(randWeaponIndex);
+            Room room = tempRooms.get(randRoomIndex);
+            room.addWeapon(weapon);
+            weapon.setRoom(room);
+            weapons.remove(weapon);
+            tempRooms.remove(room);
+        }
+    }
+
     //------------------------
     // INTERFACE
     //------------------------
@@ -146,10 +164,12 @@ public class Board
 
     public boolean isMoveValid(Player player, Direction dir){
         Position newPosition = player.getPosition().move(dir);
-        if(newPosition.getY() > 24 || newPosition.getX() > 23){
+        if(newPosition.getY() > 24 || newPosition.getX() > 23 || newPosition.getY() < 0 || newPosition.getX() < 0){
+            System.out.println("Cannot move out of bounds!");
             return false;
         }
         if(getCharFromPosition(newPosition) != ' ' && getCharFromPosition(newPosition) != '*'){
+            System.out.println("Can only move to blank spaces or asterisks!");
             return false;
         }
         return true;
@@ -160,24 +180,33 @@ public class Board
     }
 
     public void move(Player player, Direction dir){
-        //TODO: change board state to reflect moved player positions
-        if(!isMoveValid(player, dir)) {
-            return;
+        try {
+            if (!isMoveValid(player, dir)) {
+                return;
+            }
+        }
+        catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
         }
         Position newPosition = player.getPosition().move(dir);
         if(getCharFromPosition(newPosition) == ' ') {
             board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
             board[newPosition.getY()][newPosition.getX()] = Character.forDigit(player.getNum(), 10);
             player.setPosition(newPosition);
+            print();
         }
 
         //TODO: put players in rooms if they're at room positions
         else{
             board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
+            player.setPosition(null);
             for(Room room : rooms){
-                if(room.getEntrances().contains(newPosition)){
-                    player.setRoom(room);
-                    room.addPlayer(player);
+                for(Position pos : room.getEntrances()) {
+                    if (pos.getX() == newPosition.getX() && pos.getY() == newPosition.getY()) {
+                        player.setRoom(room);
+                        room.addPlayer(player);
+                        print();
+                    }
                 }
             }
         }

@@ -13,8 +13,8 @@ public class Game {
     private boolean won;
     private List<CharacterCard> characters;
     private List<RoomCard> rooms;
-    private List<WeaponCard> weapons;
-    Scanner scan;
+    public List<WeaponCard> weapons;
+    private Scanner scan;
 
     //Game Associations
     private Board board;
@@ -99,6 +99,7 @@ public class Game {
         }
         board.initBoardPlayerStart();
         board.initRooms();
+        board.initWeapons(weapons);
 
         //deal hand to players:
         int i = 0;
@@ -107,15 +108,14 @@ public class Game {
             players.get(i++).addCard(cardStack.getRandCard());
         }
         this.board.print();
+        int t = 0;
         while(!isWon()) {
-            initTurn();
+            if(t>=players.size()){t=0;}
+            doTurn(players.get(t++));
         }
     }
 
     public void initTurn(){
-        int i = 0;
-        if(i>=players.size()){i=0;}
-        doTurn(players.get(i++));
     }
 
     public void doTurn(Player player) {
@@ -134,14 +134,19 @@ public class Game {
                 System.out.println("1: Leave the room");
                 int answer = -1;
                 while(0 > answer || answer > 1){
-                    String input = scan.nextLine();
+                    String input = scan.next();
                     answer = Integer.parseInt(input);
                 }
                 if(answer == 1){
                     player.leaveRoom();
+                    board.print();
                 }
                 if(answer == 0){
-                    player.suggest(envelope);
+                    Call suggestion = player.suggest(this, envelope);
+                    System.out.println("A suggestion has been made!");
+                    System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
+                    + " did the murder with a " + suggestion.getWeaponCard().getName() + "!");
+                    System.out.println("It is now each players turn to refute this suggestion!");
                     break;
                 }
             }
@@ -161,22 +166,18 @@ public class Game {
             switch (answer) {
                 case 0:
                     board.move(player, Board.Direction.NORTH);
-                    board.print();
                     moves--;
                     break;
                 case 1:
                     board.move(player, Board.Direction.EAST);
-                    board.print();
                     moves--;
                     break;
                 case 2:
                     board.move(player, Board.Direction.SOUTH);
-                    board.print();
                     moves--;
                     break;
                 case 3:
                     board.move(player, Board.Direction.WEST);
-                    board.print();
                     moves--;
                     break;
             }
