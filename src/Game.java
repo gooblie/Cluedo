@@ -115,7 +115,16 @@ public class Game {
         int t = 0;
         while(!isWon()) {
             if(t>= playersInGame.size()){t=0;}
-            doTurn(playersInGame.get(t++));
+            if(!playersInGame.isEmpty()){
+                doTurn(playersInGame.get(t++));
+            }
+            else{
+                System.out.println("All players have been eliminated from making accusations!");
+                System.out.println("Who dunnit? " + envelope.getCharacter().getName() + " used a " +
+                        envelope.getWeaponCard().getName() + " in the " + envelope.getRoom().getName() + "!");
+
+                System.out.println("Thanks for playing!");
+            }
         }
     }
 
@@ -247,11 +256,14 @@ public class Game {
                     break;
             }
         }
-        //TODO: AT THE END OF TURN ASK IF THEY WANT TO MAKE AN ACCUSATION
     }
 
     public void doWin(Player player) {
         won = true;
+        System.out.println(player.getName() + " has won!");
+        System.out.println("Who dunnit? " + envelope.getCharacter().getName() + " used a " +
+                envelope.getWeaponCard().getName() + " in the " + envelope.getRoom().getName() + "!");
+        System.out.println("Thanks for playing!");
     }
 
     public Board getBoard() {
