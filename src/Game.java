@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class Game {
@@ -13,6 +14,7 @@ public class Game {
     private List<CharacterCard> characters;
     private List<RoomCard> rooms;
     private List<WeaponCard> weapons;
+    Scanner scan;
 
     //Game Associations
     private Board board;
@@ -35,7 +37,7 @@ public class Game {
         turn = 1;
         players = new ArrayList<>();
         board = new Board("board.txt", this);
-        Scanner read = new Scanner(System.in);
+        scan = new Scanner(System.in);
 
         //characters:
         characters = new ArrayList<>();
@@ -77,7 +79,7 @@ public class Game {
         while(3 > numOfPlayers || numOfPlayers > 6){
             System.out.println("how many players do you have? (3-6)");
 
-            String input = read.nextLine();
+            String input = scan.nextLine();
             numOfPlayers = Integer.parseInt(input);
         }
         for (int i = 1; i <= numOfPlayers; i++) {
@@ -87,7 +89,7 @@ public class Game {
             }
             int characterNumber = -1;
             while(0 > characterNumber || characterNumber > characters.size()){
-                String input = read.nextLine();
+                String input = scan.nextLine();
                 characterNumber = Integer.parseInt(input);
             }
             String name = characters.get(characterNumber).getName();
@@ -95,7 +97,6 @@ public class Game {
             Player player = new Player(name, i, board.getStartPosition(name));
             players.add(player);
         }
-        read.close();
         board.initBoardPlayerStart();
         board.initRooms();
 
@@ -106,7 +107,7 @@ public class Game {
             players.get(i++).addCard(cardStack.getRandCard());
         }
         this.board.print();
-        while(true) {
+        while(!isWon()) {
             initTurn();
         }
     }
@@ -118,7 +119,6 @@ public class Game {
     }
 
     public void doTurn(Player player) {
-        Scanner read = new Scanner(System.in);
         Random rand = new Random();
         int dice1 = rand.nextInt(7)+1;
         int dice2 = rand.nextInt(7)+1;
@@ -131,7 +131,7 @@ public class Game {
                 System.out.println("1: Leave the room");
                 int answer = -1;
                 while(0 > answer || answer > 1){
-                    String input = read.nextLine();
+                    String input = scan.nextLine();
                     answer = Integer.parseInt(input);
                 }
                 if(answer == 1){
@@ -152,10 +152,10 @@ public class Game {
             System.out.println("3: West");
             int answer = -1;
             while (0 > answer || answer > 3) {
-                if(read.hasNextLine()) {
-                    String input = read.nextLine();
-                    answer = Integer.parseInt(input);
-                }
+                Scanner in = new Scanner(System.in);
+                String input = scan.next();
+                answer = Integer.parseInt(input);
+
             }
             switch (answer) {
                 case 0:
@@ -221,5 +221,6 @@ public class Game {
         while (!game.isWon()) {
             //TODO: determine which players turn it is and doTurn(Player)
         }
+        game.scan.close();
     }
 }
