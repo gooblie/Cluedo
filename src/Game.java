@@ -122,8 +122,11 @@ public class Game {
         Random rand = new Random();
         int dice1 = rand.nextInt(7)+1;
         int dice2 = rand.nextInt(7)+1;
-        int moves = dice1+dice2;
-        for (int i = 0; i < moves ; i++) {
+        int roll = dice1+dice2;
+        int moves = roll;
+        System.out.println("Player " + player.getNum() + ": It is your turn and you are currently in the corridors!");
+        System.out.println("You rolled a " + roll + "!");
+        for (int i = 0; i < roll ; i++) {
             //if a player is in a room then the only way they can move is exit
             if(player.getRoom() != null){
                 System.out.println("You are in the "+player.getRoom().getName());
@@ -143,8 +146,7 @@ public class Game {
                 }
             }
             //TODO: ASK WHAT DIRECTION THEY SHOULD MOVE IN AND MOVE IN THAT DIR
-            System.out.println("Player " + player.getNum() + ": It is your turn and you are currently in the corridors!");
-            System.out.println("You rolled a " + moves + "!");
+            System.out.println("You have " + moves + " moves!");
             System.out.println("Which direction do you want to move?");
             System.out.println("0: North");
             System.out.println("1: East");
@@ -152,28 +154,30 @@ public class Game {
             System.out.println("3: West");
             int answer = -1;
             while (0 > answer || answer > 3) {
-                Scanner in = new Scanner(System.in);
                 String input = scan.next();
                 answer = Integer.parseInt(input);
 
             }
             switch (answer) {
                 case 0:
-                    player.setPosition(player.getPosition().move(Board.Direction.NORTH));
                     board.move(player, Board.Direction.NORTH);
+                    board.print();
+                    moves--;
                     break;
                 case 1:
-                    player.setPosition(player.getPosition().move(Board.Direction.EAST));
                     board.move(player, Board.Direction.EAST);
+                    board.print();
+                    moves--;
                     break;
                 case 2:
-                    player.setPosition(player.getPosition().move(Board.Direction.SOUTH));
                     board.move(player, Board.Direction.SOUTH);
+                    board.print();
+                    moves--;
                     break;
                 case 3:
-                    player.setPosition(player.getPosition().move(Board.Direction.WEST));
                     board.move(player, Board.Direction.WEST);
                     board.print();
+                    moves--;
                     break;
             }
         }
