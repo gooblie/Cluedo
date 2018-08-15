@@ -51,15 +51,15 @@ public class Player {
     public Call suggest(Game game) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please select a character to suggest:");
-        for (int j = 0; j < game.getPlayers().size(); j++) {
-            System.out.println(j+": "+game.getPlayers().get(j).getName());
+        for (int j = 0; j < game.getPlayersInGame().size(); j++) {
+            System.out.println(j+": "+game.getPlayersInGame().get(j).getName());
         }
         int playerNumber = -1;
-        while(0 > playerNumber || playerNumber > game.getPlayers().size()){
+        while(0 > playerNumber || playerNumber > game.getPlayersInGame().size()){
             String input = scan.nextLine();
             playerNumber = Integer.parseInt(input);
         }
-        String playerName = game.getPlayers().get(playerNumber).getName();
+        String playerName = game.getPlayersInGame().get(playerNumber).getName();
         CharacterCard charSuggestion = new CharacterCard(playerName);
 
         System.out.println("Please select a weapon to suggest:");
@@ -80,8 +80,8 @@ public class Player {
         }
 
         //check if player is in room, moving it to room if not
-        if(game.getPlayers().get(playerNumber).getRoom() != this.getRoom()){
-            this.getRoom().addPlayer(game.getPlayers().get(playerNumber));
+        if(game.getPlayersInGame().get(playerNumber).getRoom() != this.getRoom()){
+            this.getRoom().addPlayer(game.getPlayersInGame().get(playerNumber));
         }
 
         RoomCard roomSuggestion = new RoomCard(this.getRoom().getName());
@@ -91,15 +91,15 @@ public class Player {
     public Call accuse(Game game) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please select a character to accuse:");
-        for (int j = 0; j < game.getPlayers().size(); j++) {
-            System.out.println(j+": "+game.getPlayers().get(j).getName());
+        for (int j = 0; j < game.getPlayersInGame().size(); j++) {
+            System.out.println(j+": "+game.getPlayersInGame().get(j).getName());
         }
         int playerNumber = -1;
-        while(0 > playerNumber || playerNumber > game.getPlayers().size()){
+        while(0 > playerNumber || playerNumber > game.getPlayersInGame().size()){
             String input = scan.nextLine();
             playerNumber = Integer.parseInt(input);
         }
-        String playerName = game.getPlayers().get(playerNumber).getName();
+        String playerName = game.getPlayersInGame().get(playerNumber).getName();
         CharacterCard charSuggestion = new CharacterCard(playerName);
 
         System.out.println("Please select a weapon to accuse:");
@@ -150,9 +150,4 @@ public class Player {
         this.room.removePlayer(this);
         this.setRoom(null);
     }
-
-    public void move() {
-
-    }
-
 }

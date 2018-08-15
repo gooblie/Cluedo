@@ -98,7 +98,6 @@ public class Call
                 Objects.equals(character, call.character);
     }
 
-    @Override
     public boolean contains(Card c) {
         if (c == null) return false;
         return weaponCard.equals(c) ||

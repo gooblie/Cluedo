@@ -9,6 +9,7 @@ public class Game {
     //Game Attributes
     private int turn;
     private Call envelope;
+    private List<Call> suggestions;
     private boolean won;
     private List<CharacterCard> characters;
     private List<RoomCard> rooms;
@@ -18,7 +19,7 @@ public class Game {
     //Game Associations
     private Board board;
     private CardStack cardStack;
-    private List<Player> players;
+    private List<Player> playersInGame;
 
     //------------------------
     // CONSTRUCTOR
@@ -34,7 +35,8 @@ public class Game {
 
     public void initGame() {
         turn = 1;
-        players = new ArrayList<>();
+        playersInGame = new ArrayList<>();
+        suggestions = new ArrayList<>();
         board = new Board("board.txt", this);
         scan = new Scanner(System.in);
 
@@ -71,12 +73,12 @@ public class Game {
         //init envelope:
         envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
 
-        //select players:
+        //select playersInGame:
         System.out.println("Welcome to Cluedo!");
         int numOfPlayers = 0;
         board.initPlayerStart();
         while(3 > numOfPlayers || numOfPlayers > 6){
-            System.out.println("how many players do you have? (3-6)");
+            System.out.println("how many playersInGame do you have? (3-6)");
 
             String input = scan.nextLine();
             numOfPlayers = Integer.parseInt(input);
@@ -94,23 +96,23 @@ public class Game {
             String name = characters.get(characterNumber).getName();
             characters.remove(characterNumber);
             Player player = new Player(name, i, board.getStartPosition(name));
-            players.add(player);
+            playersInGame.add(player);
         }
         board.initBoardPlayerStart();
         board.initRooms();
         board.initWeapons(weapons);
 
-        //deal hand to players:
+        //deal hand to playersInGame:
         int i = 0;
         while(cardStack.hasCard()){
-            if(i>=players.size()){i=0;}
-            players.get(i++).addCard(cardStack.getRandCard());
+            if(i>= playersInGame.size()){i=0;}
+            playersInGame.get(i++).addCard(cardStack.getRandCard());
         }
         this.board.print();
         int t = 0;
         while(!isWon()) {
-            if(t>=players.size()){t=0;}
-            doTurn(players.get(t++));
+            if(t>= playersInGame.size()){t=0;}
+            doTurn(playersInGame.get(t++));
         }
     }
 
@@ -120,64 +122,91 @@ public class Game {
         int dice2 = rand.nextInt(7)+1;
         int roll = dice1+dice2;
         int moves = roll;
-        System.out.println("Player " + player.getNum() + ": It is your turn and you are currently in the corridors!");
-        System.out.println("You rolled a " + roll + "!");
+        if (!suggestions.isEmpty()) {
+            System.out.println("One or more unrefuted suggestions have been made!");
+            for(int s = 1; s <= suggestions.size(); s++) {
+                System.out.println("Suggestion " + s + ": " + suggestions.get(s-1).getCharacter().getName()
+                        + " did the murder with a " + suggestions.get(s-1).getWeaponCard().getName() + " in the " + suggestions.get(s-1).getRoom().getName() + ".");
+            }
+            System.out.println();
+            System.out.println("Player " + player.getNum() + ": Would you like to make an accusation?");
+            System.out.println("0: Yes");
+            System.out.println("1: No");
+            int accusation = -1;
+            while (0 > accusation || accusation > 1) {
+                String input = scan.next();
+                accusation = Integer.parseInt(input);
+            }
+            if (accusation == 0) {
+                Call accuse = player.accuse(this);
+                if (accuse.equals(envelope)) {
+                    doWin(player);
+                } else {
+                    playersInGame.remove(player);
+                    System.out.println("Incorrect accusation! You lose!");
+                    return;
+                }
+            }
+        }
         for (int i = 0; i < roll ; i++) {
             //if a player is in a room then the only way they can move is exit
-            if(player.getRoom() != null){
-                System.out.println("You are in the "+player.getRoom().getName());
+            if (player.getRoom() != null){
+                System.out.println("Player " + player.getNum() + ": You are in the " + player.getRoom().getName());
                 System.out.println("0: Make a suggestion");
                 System.out.println("1: Leave the room");
                 int answer = -1;
-                while(0 > answer || answer > 1){
+                while (0 > answer || answer > 1) {
                     String input = scan.next();
                     answer = Integer.parseInt(input);
                 }
-                if(answer == 1){
+                if (answer == 1) {
                     player.leaveRoom();
+                    moves--;
                     board.print();
                 }
-                if(answer == 0){
-                    for (WeaponCard weapon: getWeapons()) {
-
-                    }
+                if (answer == 0) {
                     Call suggestion = player.suggest(this);
                     System.out.println("A suggestion has been made!");
                     System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
-                    + " did the murder with a " + suggestion.getWeaponCard().getName() + "!");
+                            + " did the murder with a " + suggestion.getWeaponCard().getName() + " in the " + suggestion.getRoom().getName() + "!");
                     System.out.println("It is now each players turn to refute this suggestion!");
                     Map<Player, Card> refuters = new HashMap<>();
-                    for (Player other: players) {
-                        if(other!=player){
+                    ArrayList<Player> allPlayers = new ArrayList<>();
+                    allPlayers.addAll(playersInGame);
+                    for (Player other : allPlayers) {
+                        if (other != player) {
                             System.out.println("Player " + other.getNum() + ": Do you want to choose a card from your hand to refute the suggestion?");
                             System.out.println("0: No refute");
                             int j = 1;
-                            for (Card card: other.getCards()) {
-                                System.out.println(i + ": " + card.getName());
+                            for (Card card : other.getCards()) {
+                                System.out.println(i++ + ": " + card.getName());
                             }
                             answer = -1;
-                            while(0 > answer || answer > other.getCards().size()){
+                            while (0 > answer || answer > other.getCards().size()) {
                                 String input = scan.next();
                                 answer = Integer.parseInt(input);
                             }
-                            if(answer == 0){
+                            if (answer == 0) {
                                 continue;
                             }
-                            refuters.put(other, other.getCards().get(answer-1));
+                            refuters.put(other, other.getCards().get(answer - 1));
                         }
                     }
-                    if(refuters.isEmpty()){
+                    if (refuters.isEmpty()) {
                         System.out.println("No one refuted this suggestion");
-                    }else{
-                        for (Player p: refuters.keySet()) {
-                            if(suggestion.contains(refuters.get(p))){
+                        suggestions.add(suggestion);
+                    } else {
+                        for (Player p : refuters.keySet()) {
+                            if (suggestion.contains(refuters.get(p))) {
                                 System.out.println("Player " + p.getNum() + "refuted the suggestion with the card: " + refuters.get(p));
                             }
                         }
                     }
-                    break;
+                    return;
                 }
             }
+            System.out.println("Player " + player.getNum() + ": It is your turn and you are currently in the corridors!");
+            System.out.println("You rolled a " + roll + "!");
             System.out.println("You have " + moves + " moves!");
             System.out.println("Which direction do you want to move?");
             System.out.println("0: North");
@@ -232,8 +261,8 @@ public class Game {
         return cardStack;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public List<Player> getPlayersInGame() {
+        return playersInGame;
     }
 
     public List<CharacterCard> getCharacters() {

@@ -124,7 +124,7 @@ public class Board
     }
 
     public void initBoardPlayerStart(){
-        for(Player p : game.getPlayers()){
+        for(Player p : game.getPlayersInGame()){
            board[getStartPosition(p.getName()).getY()][getStartPosition(p.getName()).getX()] = Character.forDigit(p.getNum(), 10);
         }
     }
