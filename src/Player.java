@@ -90,7 +90,7 @@ public class Player {
 
     public Call accuse(Game game) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Please select a character to suggest:");
+        System.out.println("Please select a character to accuse:");
         for (int j = 0; j < game.getPlayers().size(); j++) {
             System.out.println(j+": "+game.getPlayers().get(j).getName());
         }
@@ -102,7 +102,7 @@ public class Player {
         String playerName = game.getPlayers().get(playerNumber).getName();
         CharacterCard charSuggestion = new CharacterCard(playerName);
 
-        System.out.println("Please select a weapon to suggest:");
+        System.out.println("Please select a weapon to accuse:");
         for (int j = 0; j < game.getWeapons().size(); j++) {
             System.out.println(j+": "+game.getWeapons().get(j).getName());
         }
@@ -114,7 +114,7 @@ public class Player {
         String weapName = game.getWeapons().get(weaponNumber).getName();
         WeaponCard weapSuggestion = new WeaponCard(weapName);
 
-        System.out.println("Please select a weapon to suggest:");
+        System.out.println("Please select a room to accuse:");
         for (int j = 0; j < game.getRoomCards().size(); j++) {
             System.out.println(j+": "+game.getRoomCards().get(j).getName());
         }

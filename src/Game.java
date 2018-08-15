@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.*;
 
 public class Game {
@@ -115,9 +114,6 @@ public class Game {
         }
     }
 
-    public void initTurn(){
-    }
-
     public void doTurn(Player player) {
         Random rand = new Random();
         int dice1 = rand.nextInt(7)+1;
@@ -142,15 +138,46 @@ public class Game {
                     board.print();
                 }
                 if(answer == 0){
+                    for (WeaponCard weapon: getWeapons()) {
+
+                    }
                     Call suggestion = player.suggest(this);
                     System.out.println("A suggestion has been made!");
                     System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
-                    + " did the murder with a " + suggestion.getWeaponCard().getName() + " in the " + suggestion.getRoom().getName() + "!");
+                    + " did the murder with a " + suggestion.getWeaponCard().getName() + "!");
                     System.out.println("It is now each players turn to refute this suggestion!");
+                    Map<Player, Card> refuters = new HashMap<>();
+                    for (Player other: players) {
+                        if(other!=player){
+                            System.out.println("Player " + other.getNum() + ": Do you want to choose a card from your hand to refute the suggestion?");
+                            System.out.println("0: No refute");
+                            int j = 1;
+                            for (Card card: other.getCards()) {
+                                System.out.println(i + ": " + card.getName());
+                            }
+                            answer = -1;
+                            while(0 > answer || answer > other.getCards().size()){
+                                String input = scan.next();
+                                answer = Integer.parseInt(input);
+                            }
+                            if(answer == 0){
+                                continue;
+                            }
+                            refuters.put(other, other.getCards().get(answer-1));
+                        }
+                    }
+                    if(refuters.isEmpty()){
+                        System.out.println("No one refuted this suggestion");
+                    }else{
+                        for (Player p: refuters.keySet()) {
+                            if(suggestion.contains(refuters.get(p))){
+                                System.out.println("Player " + p.getNum() + "refuted the suggestion with the card: " + refuters.get(p));
+                            }
+                        }
+                    }
                     break;
                 }
             }
-            //TODO: ASK WHAT DIRECTION THEY SHOULD MOVE IN AND MOVE IN THAT DIR
             System.out.println("You have " + moves + " moves!");
             System.out.println("Which direction do you want to move?");
             System.out.println("0: North");
@@ -223,9 +250,6 @@ public class Game {
 
     public static void main(String[] args) {
         Game game = new Game();
-        while (!game.isWon()) {
-            //TODO: determine which players turn it is and doTurn(Player)
-        }
         game.scan.close();
     }
 }
