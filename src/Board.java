@@ -133,15 +133,17 @@ public class Board
         this.weapons = weapons;
         List<Room> tempRooms = new ArrayList<>();
         tempRooms.addAll(rooms);
+        List<WeaponCard> tempWeapons = new ArrayList<>();
+        tempWeapons.addAll(weapons);
         Random rand = new Random();
-        while(weapons.size() > 0){
+        while(tempWeapons.size() > 0){
             int randRoomIndex = rand.nextInt(tempRooms.size());
-            int randWeaponIndex = rand.nextInt(this.weapons.size());
-            WeaponCard weapon = this.weapons.get(randWeaponIndex);
+            int randWeaponIndex = rand.nextInt(tempWeapons.size());
+            WeaponCard weapon = tempWeapons.get(randWeaponIndex);
             Room room = tempRooms.get(randRoomIndex);
             room.addWeapon(weapon);
             weapon.setRoom(room);
-            weapons.remove(weapon);
+            tempWeapons.remove(weapon);
             tempRooms.remove(room);
         }
     }

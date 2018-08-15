@@ -145,7 +145,7 @@ public class Game {
                     Call suggestion = player.suggest(this, envelope);
                     System.out.println("A suggestion has been made!");
                     System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
-                    + " did the murder with a " + suggestion.getWeaponCard().getName() + "!");
+                    + " did the murder with a " + suggestion.getWeaponCard().getName() + " in the " + suggestion.getRoom().getName() + "!");
                     System.out.println("It is now each players turn to refute this suggestion!");
                     break;
                 }
