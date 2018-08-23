@@ -52,7 +52,7 @@ public class Player {
         Scanner scan = new Scanner(System.in);
         System.out.println("Please select a character to suggest:");
         int i = 0;
-        for (Player p: game.getAllPlayers()) {
+        for (CharacterCard p: game.getCharacters()) {
             System.out.println(i++ + ": " + p.getName());
         }
         int playerNumber = -1;

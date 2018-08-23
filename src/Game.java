@@ -85,18 +85,20 @@ public class Game {
             String input = scan.nextLine();
             numOfPlayers = Integer.parseInt(input);
         }
+        List<CharacterCard> charactersLeft = new ArrayList<>();
+        charactersLeft.addAll(characters);
         for (int i = 1; i <= numOfPlayers; i++) {
             System.out.println("Player "+(i)+" - Please select a name:");
-            for (int j = 0; j < characters.size(); j++) {
-                System.out.println(j+": "+characters.get(j).getName());
+            for (int j = 0; j < charactersLeft.size(); j++) {
+                System.out.println(j+": "+charactersLeft.get(j).getName());
             }
             int characterNumber = -1;
-            while(0 > characterNumber || characterNumber > characters.size()){
+            while(0 > characterNumber || characterNumber > charactersLeft.size()){
                 String input = scan.nextLine();
                 characterNumber = Integer.parseInt(input);
             }
-            String name = characters.get(characterNumber).getName();
-            characters.remove(characterNumber);
+            String name = charactersLeft.get(characterNumber).getName();
+            charactersLeft.remove(characterNumber);
             Player player = new Player(name, i, board.getStartPosition(name));
             playersInGame.add(player);
         }
