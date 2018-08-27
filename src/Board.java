@@ -239,12 +239,15 @@ public class Board
         System.out.println();
     }
 
-    public void draw(Graphics g){
+    public void draw(GUI gui, Graphics g){
         //Graphics2D g2 = (Graphics2D) g;
+        int width = gui.getWidth();
+        int height = gui.getHeight();
+        int rowLength = board[0].length;
+        int colLength = board.length;
         for (int i = 0; i < 25; i++) {
             for (int j = 0; j < 24; j++) {
-                g.fillRect(i * );
-                g.
+                g.drawRect(i * width / rowLength, j * height / colLength, width / rowLength, height / colLength);
             }
         }
 

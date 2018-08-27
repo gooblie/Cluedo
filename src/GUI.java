@@ -129,6 +129,14 @@ public class GUI {
         }
     }
 
+    public int getWidth(){
+        return frame.getWidth();
+    }
+
+    public int getHeight(){
+        return frame.getHeight();
+    }
+
     private void redraw(Graphics g) {
 
     }
