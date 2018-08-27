@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.List;
 
 /**
@@ -18,7 +17,18 @@ public class GUI {
 
     public GUI(){
         frame = new JFrame("Cluedo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        //prompt user if wanting to exit
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int a = JOptionPane.showConfirmDialog(frame, "Are you sure you want to quit?");
+                if (a == JOptionPane.YES_OPTION) {
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                }
+            }
+        });
         frame.setSize(500,500);
 
         //set game canvas
@@ -39,42 +49,22 @@ public class GUI {
         //set up player controls
         JPanel playerControls = new JPanel();
 
-        JButton west = new JButton("\u2190");
-        west.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                onMove(Move.WEST);
+        frame.getContentPane().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                onMove(e.getKeyChar());
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
             }
         });
-
-        JButton east = new JButton("\u2192");
-        east.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                onMove(Move.EAST);
-            }
-        });
-
-        JButton north = new JButton("\u2191");
-        north.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                onMove(Move.NORTH);
-            }
-        });
-
-        JButton south = new JButton("\u2193");
-        south.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                onMove(Move.SOUTH);
-            }
-        });
-
-        JPanel nav = new JPanel();
-        nav.setLayout(new GridLayout(2, 2));
-        nav.add(north);
-        nav.add(south);
-        nav.add(west);
-        nav.add(east);
-
-        playerControls.add(nav);
 
 
         //add components to frame
@@ -118,8 +108,26 @@ public class GUI {
         selectCharacters();
     }
 
-    private void onMove(Move move){
-
+    private void onMove(char move){
+        if(game.getCurrentPlayer() == null || game.getMoves() == 0)return;
+        switch (java.lang.Character.toUpperCase(move)) {
+            case 'W':
+                game.getBoard().move(game.getCurrentPlayer(), Board.Direction.NORTH);
+                game.moves--;
+                break;
+            case 'D':
+                game.getBoard().move(game.getCurrentPlayer(), Board.Direction.EAST);
+                game.moves--;
+                break;
+            case 'S':
+                game.getBoard().move(game.getCurrentPlayer(), Board.Direction.SOUTH);
+                game.moves--;
+                break;
+            case 'A':
+                game.getBoard().move(game.getCurrentPlayer(), Board.Direction.WEST);
+                game.moves--;
+                break;
+        }
     }
 
     public int getWidth(){

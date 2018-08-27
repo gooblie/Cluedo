@@ -17,7 +17,8 @@ public class Game {
     private Scanner scan;
     private ArrayList<Player> allPlayers;
     private int roll;
-    private int moves;
+    public int moves;
+    private Player currentPlayer;
 
     //Game Associations
     private Board board;
@@ -134,7 +135,8 @@ public class Game {
         while(!isWon()) {
             if(t>= playersInGame.size()){t=0;}
             if(!playersInGame.isEmpty()){
-                doTurn(playersInGame.get(t++));
+                currentPlayer = playersInGame.get(t++);
+                doTurn(currentPlayer);
             }
             else{
                 System.out.println("All players have been eliminated from making accusations!");
@@ -314,6 +316,14 @@ public class Game {
 
     public Board getBoard() {
         return board;
+    }
+
+    public int getMoves() {
+        return moves;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public Call getEnvelope() {
