@@ -14,6 +14,7 @@ public class GUI {
 
     public JFrame frame;
     private Game game;
+    JComponent canvas;
 
     public GUI(){
         game = new Game(this);
@@ -33,7 +34,7 @@ public class GUI {
         frame.setSize(500,500);
 
         //set game canvas
-        JComponent canvas = new JComponent() {
+        canvas = new JComponent() {
             protected void paintComponent(Graphics g) {
                 redraw(g);
             }
@@ -132,11 +133,11 @@ public class GUI {
     }
 
     public int getWidth(){
-        return frame.getWidth();
+        return canvas.getWidth();
     }
 
     public int getHeight(){
-        return frame.getHeight();
+        return canvas.getHeight();
     }
 
     private void redraw(Graphics g) {
