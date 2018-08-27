@@ -16,6 +16,7 @@ public class Game {
     public List<WeaponCard> weapons;
     private Scanner scan;
     private ArrayList<Player> allPlayers;
+    private int roll;
 
     //Game Associations
     private Board board;
@@ -56,6 +57,7 @@ public class Game {
         characters.add(new CharacterCard("Mr. Green"));
         characters.add(new CharacterCard("Mrs. Peacock"));
         characters.add(new CharacterCard("Prof. Plum"));
+
         //weapons:
         weapons = new ArrayList<>();
         weapons.add(new WeaponCard("Candlestick"));
@@ -64,6 +66,7 @@ public class Game {
         weapons.add(new WeaponCard("Revolver"));
         weapons.add(new WeaponCard("Rope"));
         weapons.add(new WeaponCard("Spanner"));
+
         //roomCards:
         rooms = new ArrayList<>();
         rooms.add(new RoomCard("Kitchen"));
@@ -76,6 +79,7 @@ public class Game {
         rooms.add(new RoomCard("Study"));
         rooms.add(new RoomCard("Hall"));
 
+        //cardStack
         cardStack = new CardStack(this);
 
         //init envelope:
@@ -144,34 +148,9 @@ public class Game {
         Random rand = new Random();
         int dice1 = rand.nextInt(7)+1;
         int dice2 = rand.nextInt(7)+1;
-        int roll = dice1+dice2;
+        roll = dice1+dice2;
         int moves = roll;
-        if (!suggestions.isEmpty()) {
-            System.out.println("One or more unrefuted suggestions have been made!");
-            for(int s = 1; s <= suggestions.size(); s++) {
-                System.out.println("Suggestion " + s + ": " + suggestions.get(s-1).getCharacter().getName()
-                        + " did the murder with a " + suggestions.get(s-1).getWeaponCard().getName() + " in the " + suggestions.get(s-1).getRoom().getName() + ".");
-            }
-            System.out.println();
-            System.out.println("Player " + player.getNum() + ": Would you like to make an accusation?");
-            System.out.println("0: Yes");
-            System.out.println("1: No");
-            int accusation = -1;
-            while (0 > accusation || accusation > 1) {
-                String input = scan.next();
-                accusation = Integer.parseInt(input);
-            }
-            if (accusation == 0) {
-                Call accuse = player.accuse(this);
-                if (accuse.equals(envelope)) {
-                    doWin(player);
-                } else {
-                    playersInGame.remove(player);
-                    System.out.println("Incorrect accusation! You lose!");
-                    return;
-                }
-            }
-        }
+        checkSuggestions(player);
         if(player.getRoom() == null) {
             System.out.println("Player " + player.getNum() + ": Your current cards are:");
             for (Card card : player.getCards()) {
@@ -206,46 +185,9 @@ public class Game {
                     board.print();
                     continue;
                 }
-                Call suggestion = player.suggest(this);
-                System.out.println("A suggestion has been made!");
-                System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
-                        + " did the murder with a " + suggestion.getWeaponCard().getName() + " in the " + suggestion.getRoom().getName() + "!");
-                System.out.println("It is now each players turn to refute this suggestion!");
-                System.out.println();
-                Map<Player, Card> refuters = new HashMap<>();
-                for (Player other : allPlayers) {
-                    if (other != player) {
-                        System.out.println("Player " + other.getNum() + ": Do you want to choose a card from your hand to refute the suggestion?");
-                        System.out.println("0: No refute");
-                        int j = 1;
-                        for (Card card : other.getCards()) {
-                            System.out.println(j++ + ": " + card.getName());
-                        }
-                        answer = -1;
-                        while (0 > answer || answer > other.getCards().size()) {
-                            String input = scan.next();
-                            answer = Integer.parseInt(input);
-                        }
-                        if (answer == 0) {
-                            continue;
-                        }
-                        refuters.put(other, other.getCards().get(answer - 1));
-                    }
-                }
-                if (refuters.isEmpty()) {
-                    System.out.println("No one refuted this suggestion");
-                    System.out.println();
-                    suggestions.add(suggestion);
-                } else {
-                    for (Player p : refuters.keySet()) {
-                        if (suggestion.contains(refuters.get(p))) {
-                            System.out.println("(For player " + player.getNum() + "s eyes only!): Player " + p.getNum() + " refuted the suggestion with the card: " + refuters.get(p).getName());
-                            System.out.println();
-                        }
-                    }
-                }
+                Call suggestion = makeSuggestion(player);
+                refuteLoop(player, suggestion);
                 return;
-
             }
             System.out.println("You have " + moves + " moves!");
             System.out.println("Player " + player.getNum() + ": Which direction do you want to move?");
@@ -276,6 +218,80 @@ public class Game {
                     board.move(player, Board.Direction.WEST);
                     moves--;
                     break;
+            }
+        }
+    }
+
+    public void checkSuggestions(Player player){
+        if (!suggestions.isEmpty()) {
+            System.out.println("One or more unrefuted suggestions have been made!");
+            for(int s = 1; s <= suggestions.size(); s++) {
+                System.out.println("Suggestion " + s + ": " + suggestions.get(s-1).getCharacter().getName()
+                        + " did the murder with a " + suggestions.get(s-1).getWeaponCard().getName() + " in the " + suggestions.get(s-1).getRoom().getName() + ".");
+            }
+            System.out.println();
+            System.out.println("Player " + player.getNum() + ": Would you like to make an accusation?");
+            System.out.println("0: Yes");
+            System.out.println("1: No");
+            int accusation = -1;
+            while (0 > accusation || accusation > 1) {
+                String input = scan.next();
+                accusation = Integer.parseInt(input);
+            }
+            if (accusation == 0) {
+                Call accuse = player.accuse(this);
+                if (accuse.equals(envelope)) {
+                    doWin(player);
+                } else {
+                    playersInGame.remove(player);
+                    System.out.println("Incorrect accusation! You lose!");
+                    return;
+                }
+            }
+        }
+    }
+
+    public Call makeSuggestion(Player player){
+        Call suggestion = player.suggest(this);
+        System.out.println("A suggestion has been made!");
+        System.out.println("Player " + player.getNum() + " is suggesting that " + suggestion.getCharacter().getName()
+                + " did the murder with a " + suggestion.getWeaponCard().getName() + " in the " + suggestion.getRoom().getName() + "!");
+        return suggestion;
+    }
+
+    public void refuteLoop(Player player, Call suggestion){
+        System.out.println("It is now each players turn to refute this suggestion!");
+        System.out.println();
+        Map<Player, Card> refuters = new HashMap<>();
+        for (Player other : allPlayers) {
+            if (other != player) {
+                System.out.println("Player " + other.getNum() + ": Do you want to choose a card from your hand to refute the suggestion?");
+                System.out.println("0: No refute");
+                int j = 1;
+                for (Card card : other.getCards()) {
+                    System.out.println(j++ + ": " + card.getName());
+                }
+                int answer = -1;
+                while (0 > answer || answer > other.getCards().size()) {
+                    String input = scan.next();
+                    answer = Integer.parseInt(input);
+                }
+                if (answer == 0) {
+                    continue;
+                }
+                refuters.put(other, other.getCards().get(answer - 1));
+            }
+        }
+        if (refuters.isEmpty()) {
+            System.out.println("No one refuted this suggestion");
+            System.out.println();
+            suggestions.add(suggestion);
+        } else {
+            for (Player p : refuters.keySet()) {
+                if (suggestion.contains(refuters.get(p))) {
+                    System.out.println("(For player " + player.getNum() + "s eyes only!): Player " + p.getNum() + " refuted the suggestion with the card: " + refuters.get(p).getName());
+                    System.out.println();
+                }
             }
         }
     }
