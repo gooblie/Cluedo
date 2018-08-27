@@ -17,11 +17,10 @@ public class Game {
     private Scanner scan;
     private ArrayList<Player> allPlayers;
     private int roll;
-    public int moves;
-    public Player currentPlayer;
+    private int moves;
 
     //Game Associations
-    public Board board;
+    private Board board;
     private CardStack cardStack;
     private List<Player> playersInGame;
     private GUI GUI;
@@ -89,36 +88,37 @@ public class Game {
         envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
     }
 
-    public void initPlayers() {
-        //select playersInGame:
-        System.out.println("Welcome to Cluedo!");
-        int numOfPlayers = 0;
-        board.initPlayerStart();
-        while(3 > numOfPlayers || numOfPlayers > 6){
-            System.out.println("How many players do you have? (3-6)");
-            String input = scan.nextLine();
-            numOfPlayers = Integer.parseInt(input);
-        }
-        List<CharacterCard> charactersLeft = new ArrayList<>();
-        charactersLeft.addAll(characters);
-        for (int i = 1; i <= numOfPlayers; i++) {
-            System.out.println("Player "+(i)+" - Please select a name:");
-            for (int j = 0; j < charactersLeft.size(); j++) {
-                System.out.println(j+": "+charactersLeft.get(j).getName());
-            }
-            int characterNumber = -1;
-            while(0 > characterNumber || characterNumber > charactersLeft.size()){
-                String input = scan.nextLine();
-                characterNumber = Integer.parseInt(input);
-            }
-            String name = charactersLeft.get(characterNumber).getName();
-            charactersLeft.remove(characterNumber);
-            Player player = new Player(name, i, board.getStartPosition(name));
-            playersInGame.add(player);
-        }
-        allPlayers.addAll(playersInGame);
-        board.initBoardPlayerStart();
-    }
+//    public void initPlayers() {
+//        //select playersInGame:
+//        System.out.println("Welcome to Cluedo!");
+//        int numOfPlayers = 0;
+//        board.initPlayerStart();
+//        while(3 > numOfPlayers || numOfPlayers > 6){
+//            System.out.println("How many players do you have? (3-6)");
+//
+//            String input = scan.nextLine();
+//            numOfPlayers = Integer.parseInt(input);
+//        }
+//        List<CharacterCard> charactersLeft = new ArrayList<>();
+//        charactersLeft.addAll(characters);
+//        for (int i = 1; i <= numOfPlayers; i++) {
+//            System.out.println("Player "+(i)+" - Please select a name:");
+//            for (int j = 0; j < charactersLeft.size(); j++) {
+//                System.out.println(j+": "+charactersLeft.get(j).getName());
+//            }
+//            int characterNumber = -1;
+//            while(0 > characterNumber || characterNumber > charactersLeft.size()){
+//                String input = scan.nextLine();
+//                characterNumber = Integer.parseInt(input);
+//            }
+//            String name = charactersLeft.get(characterNumber).getName();
+//            charactersLeft.remove(characterNumber);
+//            Player player = new Player(name, i, board.getStartPosition(name));
+//            playersInGame.add(player);
+//        }
+//        allPlayers.addAll(playersInGame);
+//        board.initBoardPlayerStart();
+//    }
 
     public void dealHand(){
         //deal hand to playersInGame:
@@ -134,8 +134,7 @@ public class Game {
         while(!isWon()) {
             if(t>= playersInGame.size()){t=0;}
             if(!playersInGame.isEmpty()){
-                currentPlayer = playersInGame.get(t++);
-                doTurn(currentPlayer);
+                doTurn(playersInGame.get(t++));
             }
             else{
                 System.out.println("All players have been eliminated from making accusations!");
@@ -143,7 +142,6 @@ public class Game {
                         envelope.getWeaponCard().getName() + " in the " + envelope.getRoom().getName() + "!");
 
                 System.out.println("Thanks for playing!");
-                break;
             }
         }
         scan.close();
@@ -158,7 +156,9 @@ public class Game {
         if(checkSuggestions(player)) return;
         if(player.getRoom() == null) {
             System.out.println("Player " + player.getNum() + ": Your current cards are:");
-            printCards(player);
+            for (Card card : player.getCards()) {
+                System.out.println(card.getName());
+            }
             System.out.println();
             System.out.println("It is your turn and you are currently in the corridors!");
             System.out.println("You rolled a " + roll + "!");
@@ -170,7 +170,9 @@ public class Game {
                 System.out.println("Player " + player.getNum() + ": You are in the " + player.getRoom().getName());
                 System.out.println();
                 System.out.println("Your current cards are: ");
-                printCards(player);
+                for (Card card : player.getCards()) {
+                    System.out.println(card.getName());
+                }
                 System.out.println();
                 System.out.println("0: Make a suggestion");
                 System.out.println("1: Leave the room");
@@ -299,12 +301,6 @@ public class Game {
                 board.move(player, Board.Direction.WEST);
                 moves--;
                 break;
-        }
-    }
-
-    public void printCards(Player player){
-        for (Card card : player.getCards()) {
-            System.out.println(card.getName());
         }
     }
 
