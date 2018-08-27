@@ -35,6 +35,7 @@ public class Game {
         dealHand();
         board.print();
         gameLoop();
+        scan.close();
     }
 
     //------------------------
@@ -340,8 +341,4 @@ public class Game {
         return weapons;
     }
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.scan.close();
-    }
 }

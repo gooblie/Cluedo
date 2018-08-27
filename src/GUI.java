@@ -82,7 +82,7 @@ public class GUI {
     }
 
     private void doNewGame(){
-
+        Game game = new Game();
     }
 
     private void onMove(Move move){
