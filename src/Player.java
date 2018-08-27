@@ -148,6 +148,10 @@ public class Player {
         this.room = room;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void leaveRoom(){
         this.setPosition(this.room.getExit());
         this.room.removePlayer(this);
