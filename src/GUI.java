@@ -14,6 +14,7 @@ public class GUI {
     }
 
     public JFrame frame;
+    private Game game;
 
     public GUI(){
         frame = new JFrame("Cluedo");
@@ -113,7 +114,7 @@ public class GUI {
     }
 
     private void doNewGame(){
-        Game game = new Game(this);
+        game = new Game(this);
         selectCharacters();
     }
 
@@ -121,8 +122,16 @@ public class GUI {
 
     }
 
-    private void redraw(Graphics g) {
+    public int getWidth(){
+        return frame.getWidth();
+    }
 
+    public int getHeight(){
+        return frame.getHeight();
+    }
+
+    private void redraw(Graphics g) {
+        game.getBoard().draw(this, g);
     }
 
 
