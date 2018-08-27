@@ -27,14 +27,20 @@ public class Game {
     //------------------------
 
     public Game() {
-        initGame();
+        initFields();
+        initPlayers();
+        board.initRooms();
+        board.initWeapons(weapons);
+        dealHand();
+        board.print();
+        gameLoop();
     }
 
     //------------------------
     // METHODS
     //------------------------
 
-    public void initGame() {
+    public void initFields() {
         turn = 1;
         playersInGame = new ArrayList<>();
         allPlayers = new ArrayList<>();
@@ -74,13 +80,15 @@ public class Game {
 
         //init envelope:
         envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
+    }
 
+    public void initPlayers() {
         //select playersInGame:
         System.out.println("Welcome to Cluedo!");
         int numOfPlayers = 0;
         board.initPlayerStart();
         while(3 > numOfPlayers || numOfPlayers > 6){
-            System.out.println("how many players do you have? (3-6)");
+            System.out.println("How many players do you have? (3-6)");
 
             String input = scan.nextLine();
             numOfPlayers = Integer.parseInt(input);
@@ -104,16 +112,18 @@ public class Game {
         }
         allPlayers.addAll(playersInGame);
         board.initBoardPlayerStart();
-        board.initRooms();
-        board.initWeapons(weapons);
+    }
 
+    public void dealHand(){
         //deal hand to playersInGame:
         int i = 0;
         while(cardStack.hasCard()){
             if(i>= playersInGame.size()){i=0;}
             playersInGame.get(i++).addCard(cardStack.getRandCard());
         }
-        this.board.print();
+    }
+
+    public void gameLoop(){
         int t = 0;
         while(!isWon()) {
             if(t>= playersInGame.size()){t=0;}
