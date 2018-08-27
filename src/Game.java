@@ -35,7 +35,6 @@ public class Game {
         board.initWeapons(weapons);
         dealHand();
         board.print();
-        gameLoop();
     }
 
     //------------------------
@@ -143,6 +142,7 @@ public class Game {
                 System.out.println("Thanks for playing!");
             }
         }
+        scan.close();
     }
 
     public void doTurn(Player player) {
@@ -346,8 +346,4 @@ public class Game {
         return weapons;
     }
 
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.scan.close();
-    }
 }
