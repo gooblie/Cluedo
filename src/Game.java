@@ -13,10 +13,11 @@ public class Game {
     private boolean won;
     private List<CharacterCard> characters;
     private List<RoomCard> rooms;
-    public List<WeaponCard> weapons;
+    private List<WeaponCard> weapons;
     private Scanner scan;
     private ArrayList<Player> allPlayers;
     private int roll;
+    private int moves;
 
     //Game Associations
     private Board board;
@@ -150,7 +151,7 @@ public class Game {
         int dice1 = rand.nextInt(7)+1;
         int dice2 = rand.nextInt(7)+1;
         roll = dice1+dice2;
-        int moves = roll;
+        moves = roll;
         checkSuggestions(player);
         if(player.getRoom() == null) {
             System.out.println("Player " + player.getNum() + ": Your current cards are:");
@@ -190,36 +191,7 @@ public class Game {
                 refuteLoop(player, suggestion);
                 return;
             }
-            System.out.println("You have " + moves + " moves!");
-            System.out.println("Player " + player.getNum() + ": Which direction do you want to move?");
-            System.out.println("0: North");
-            System.out.println("1: East");
-            System.out.println("2: South");
-            System.out.println("3: West");
-            int answer = -1;
-            while (0 > answer || answer > 3) {
-                String input = scan.next();
-                answer = Integer.parseInt(input);
-
-            }
-            switch (answer) {
-                case 0:
-                    board.move(player, Board.Direction.NORTH);
-                    moves--;
-                    break;
-                case 1:
-                    board.move(player, Board.Direction.EAST);
-                    moves--;
-                    break;
-                case 2:
-                    board.move(player, Board.Direction.SOUTH);
-                    moves--;
-                    break;
-                case 3:
-                    board.move(player, Board.Direction.WEST);
-                    moves--;
-                    break;
-            }
+            getMoves(player);
         }
     }
 
@@ -294,6 +266,39 @@ public class Game {
                     System.out.println();
                 }
             }
+        }
+    }
+
+    public void getMoves(Player player){
+        System.out.println("You have " + moves + " moves!");
+        System.out.println("Player " + player.getNum() + ": Which direction do you want to move?");
+        System.out.println("0: North");
+        System.out.println("1: East");
+        System.out.println("2: South");
+        System.out.println("3: West");
+        int answer = -1;
+        while (0 > answer || answer > 3) {
+            String input = scan.next();
+            answer = Integer.parseInt(input);
+
+        }
+        switch (answer) {
+            case 0:
+                board.move(player, Board.Direction.NORTH);
+                moves--;
+                break;
+            case 1:
+                board.move(player, Board.Direction.EAST);
+                moves--;
+                break;
+            case 2:
+                board.move(player, Board.Direction.SOUTH);
+                moves--;
+                break;
+            case 3:
+                board.move(player, Board.Direction.WEST);
+                moves--;
+                break;
         }
     }
 
