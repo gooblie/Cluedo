@@ -17,10 +17,11 @@ public class Game {
     private Scanner scan;
     private ArrayList<Player> allPlayers;
     private int roll;
-    private int moves;
+    public int moves;
+    public Player currentPlayer;
 
     //Game Associations
-    private Board board;
+    public Board board;
     private CardStack cardStack;
     private List<Player> playersInGame;
     private GUI GUI;
@@ -95,7 +96,6 @@ public class Game {
         board.initPlayerStart();
         while(3 > numOfPlayers || numOfPlayers > 6){
             System.out.println("How many players do you have? (3-6)");
-
             String input = scan.nextLine();
             numOfPlayers = Integer.parseInt(input);
         }
@@ -134,7 +134,8 @@ public class Game {
         while(!isWon()) {
             if(t>= playersInGame.size()){t=0;}
             if(!playersInGame.isEmpty()){
-                doTurn(playersInGame.get(t++));
+                currentPlayer = playersInGame.get(t++);
+                doTurn(currentPlayer);
             }
             else{
                 System.out.println("All players have been eliminated from making accusations!");
@@ -142,6 +143,7 @@ public class Game {
                         envelope.getWeaponCard().getName() + " in the " + envelope.getRoom().getName() + "!");
 
                 System.out.println("Thanks for playing!");
+                break;
             }
         }
         scan.close();
@@ -156,9 +158,7 @@ public class Game {
         if(checkSuggestions(player)) return;
         if(player.getRoom() == null) {
             System.out.println("Player " + player.getNum() + ": Your current cards are:");
-            for (Card card : player.getCards()) {
-                System.out.println(card.getName());
-            }
+            printCards(player);
             System.out.println();
             System.out.println("It is your turn and you are currently in the corridors!");
             System.out.println("You rolled a " + roll + "!");
@@ -170,9 +170,7 @@ public class Game {
                 System.out.println("Player " + player.getNum() + ": You are in the " + player.getRoom().getName());
                 System.out.println();
                 System.out.println("Your current cards are: ");
-                for (Card card : player.getCards()) {
-                    System.out.println(card.getName());
-                }
+                printCards(player);
                 System.out.println();
                 System.out.println("0: Make a suggestion");
                 System.out.println("1: Leave the room");
@@ -301,6 +299,12 @@ public class Game {
                 board.move(player, Board.Direction.WEST);
                 moves--;
                 break;
+        }
+    }
+
+    public void printCards(Player player){
+        for (Card card : player.getCards()) {
+            System.out.println(card.getName());
         }
     }
 
