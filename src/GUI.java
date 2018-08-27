@@ -65,7 +65,7 @@ public class GUI {
 
         JPanel nav = new JPanel();
         nav.setLayout(new GridLayout(2, 2));
-        nav.add( north);
+        nav.add(north);
         nav.add(south);
         nav.add(west);
         nav.add(east);

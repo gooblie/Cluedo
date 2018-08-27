@@ -151,7 +151,7 @@ public class Game {
         int dice2 = rand.nextInt(7)+1;
         roll = dice1+dice2;
         moves = roll;
-        checkSuggestions(player);
+        if(checkSuggestions(player)) return;
         if(player.getRoom() == null) {
             System.out.println("Player " + player.getNum() + ": Your current cards are:");
             for (Card card : player.getCards()) {
@@ -194,7 +194,7 @@ public class Game {
         }
     }
 
-    public void checkSuggestions(Player player){
+    public boolean checkSuggestions(Player player){
         if (!suggestions.isEmpty()) {
             System.out.println("One or more unrefuted suggestions have been made!");
             for(int s = 1; s <= suggestions.size(); s++) {
@@ -217,10 +217,11 @@ public class Game {
                 } else {
                     playersInGame.remove(player);
                     System.out.println("Incorrect accusation! You lose!");
-                    return;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     public Call makeSuggestion(Player player){
