@@ -16,9 +16,10 @@ public class GUI {
     private Game game;
 
     public GUI(){
+        game = new Game(this);
+
         frame = new JFrame("Cluedo");
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
         //prompt user if wanting to exit
         frame.addWindowListener(new WindowAdapter() {
             @Override
