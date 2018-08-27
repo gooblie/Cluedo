@@ -1,7 +1,13 @@
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.Character;
 import java.util.*;
+import java.util.List;
 
 public class Board
 {
@@ -207,8 +213,6 @@ public class Board
             player.setPosition(newPosition);
             print();
         }
-
-        //TODO: put players in rooms if they're at room positions
         else{
             board[player.getPosition().getY()][player.getPosition().getX()] = ' ';
             player.setPosition(null);
@@ -233,5 +237,19 @@ public class Board
         }
         System.out.println();
         System.out.println();
+    }
+
+    public void draw(GUI gui, Graphics g){
+        //Graphics2D g2 = (Graphics2D) g;
+        int width = gui.getWidth();
+        int height = gui.getHeight();
+        int rowLength = board[0].length;
+        int colLength = board.length;
+        for (int i = 0; i < 25; i++) {
+            for (int j = 0; j < 24; j++) {
+                g.drawRect(i * width / rowLength, j * height / colLength, width / rowLength, height / colLength);
+            }
+        }
+
     }
 }

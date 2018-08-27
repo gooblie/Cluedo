@@ -2,10 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Michael on 27/08/18.
@@ -17,7 +14,6 @@ public class GUI {
     }
 
     public JFrame frame;
-    public JComponent canvas;
 
     public GUI(){
         frame = new JFrame("Cluedo");
@@ -25,7 +21,7 @@ public class GUI {
         frame.setSize(500,500);
 
         //set game canvas
-        canvas = new JComponent() {
+        JComponent canvas = new JComponent() {
             protected void paintComponent(Graphics g) {
                 redraw(g);
             }
@@ -88,7 +84,7 @@ public class GUI {
 
     }
 
-    public Map<String, String> selectCharacters(){
+    public List<Player> selectCharacters(){
         //ask how many players are in the game
         JOptionPane optionPane = new JOptionPane();
         JPanel numbers = new JPanel();
@@ -105,35 +101,20 @@ public class GUI {
         numbers.add(b2);
         numbers.add(b3);
         numbers.add(b4);
-        numbers.add(new JLabel());
-        JOptionPane.showMessageDialog(frame, numbers, "How many players?", JOptionPane.QUESTION_MESSAGE);
-        int numPlayers = 0;
+        numbers.add(new JLabel("I'm a walrus"));
+        JOptionPane.showMessageDialog(null, numbers);
+        int numPlayers;
         if (b1.isSelected()){
             numPlayers = 3;
         }else if(b2.isSelected()){
             numPlayers = 4;
-        }else if(b3.isSelected()){
-            numPlayers = 5;
-        }else if(b4.isSelected()){
-            numPlayers = 6;
         }
-        Map<String, String> players = new HashMap<>();
-        System.out.println(numPlayers);
-//        for (int i = 0; i < numPlayers; i++) {
-//            String playerName = JOptionPane.showInputDialog("Please input a name for your player");
-//            String Character = "";
-//            for (Character c: ) {
-//
-//            }
-//
-//        }
         return null;
     }
 
     private void doNewGame(){
         Game game = new Game(this);
         selectCharacters();
-        redraw(canvas.getGraphics());
     }
 
     private void onMove(Move move){
@@ -141,7 +122,7 @@ public class GUI {
     }
 
     private void redraw(Graphics g) {
-        //Game.board.draw(this, g);
+
     }
 
 

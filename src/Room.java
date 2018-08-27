@@ -7,12 +7,12 @@ public class Room {
     private List<Position> entrances;
     private List<WeaponCard> weapons;
     private List<CharacterCard> characters;
-    private Position Exit;
+    private Position exit;
 
     public Room(String name, List<Position> entrances, Position exit){
         this.name = name;
         this.entrances = entrances;
-        this.Exit = exit;
+        this.exit = exit;
         this.players = new ArrayList<>();
         this.weapons = new ArrayList<>();
     }
@@ -60,6 +60,6 @@ public class Room {
     }
 
     public Position getExit() {
-        return Exit;
+        return exit;
     }
 }
