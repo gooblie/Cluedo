@@ -23,17 +23,19 @@ public class Game {
     private Board board;
     private CardStack cardStack;
     private List<Player> playersInGame;
+    private GUI GUI;
 
     //------------------------
     // CONSTRUCTOR
     //------------------------
 
-    public Game() {
+    public Game(GUI GUI) {
+        this.GUI = GUI;
         initFields();
-        initPlayers();
+        //initPlayers();
         board.initRooms();
         board.initWeapons(weapons);
-        dealHand();
+        //dealHand();
         board.print();
     }
 
