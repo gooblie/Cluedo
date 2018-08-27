@@ -88,37 +88,37 @@ public class Game {
         envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
     }
 
-    public void initPlayers() {
-        //select playersInGame:
-        System.out.println("Welcome to Cluedo!");
-        int numOfPlayers = 0;
-        board.initPlayerStart();
-        while(3 > numOfPlayers || numOfPlayers > 6){
-            System.out.println("How many players do you have? (3-6)");
-
-            String input = scan.nextLine();
-            numOfPlayers = Integer.parseInt(input);
-        }
-        List<CharacterCard> charactersLeft = new ArrayList<>();
-        charactersLeft.addAll(characters);
-        for (int i = 1; i <= numOfPlayers; i++) {
-            System.out.println("Player "+(i)+" - Please select a name:");
-            for (int j = 0; j < charactersLeft.size(); j++) {
-                System.out.println(j+": "+charactersLeft.get(j).getName());
-            }
-            int characterNumber = -1;
-            while(0 > characterNumber || characterNumber > charactersLeft.size()){
-                String input = scan.nextLine();
-                characterNumber = Integer.parseInt(input);
-            }
-            String name = charactersLeft.get(characterNumber).getName();
-            charactersLeft.remove(characterNumber);
-            Player player = new Player(name, i, board.getStartPosition(name));
-            playersInGame.add(player);
-        }
-        allPlayers.addAll(playersInGame);
-        board.initBoardPlayerStart();
-    }
+//    public void initPlayers() {
+//        //select playersInGame:
+//        System.out.println("Welcome to Cluedo!");
+//        int numOfPlayers = 0;
+//        board.initPlayerStart();
+//        while(3 > numOfPlayers || numOfPlayers > 6){
+//            System.out.println("How many players do you have? (3-6)");
+//
+//            String input = scan.nextLine();
+//            numOfPlayers = Integer.parseInt(input);
+//        }
+//        List<CharacterCard> charactersLeft = new ArrayList<>();
+//        charactersLeft.addAll(characters);
+//        for (int i = 1; i <= numOfPlayers; i++) {
+//            System.out.println("Player "+(i)+" - Please select a name:");
+//            for (int j = 0; j < charactersLeft.size(); j++) {
+//                System.out.println(j+": "+charactersLeft.get(j).getName());
+//            }
+//            int characterNumber = -1;
+//            while(0 > characterNumber || characterNumber > charactersLeft.size()){
+//                String input = scan.nextLine();
+//                characterNumber = Integer.parseInt(input);
+//            }
+//            String name = charactersLeft.get(characterNumber).getName();
+//            charactersLeft.remove(characterNumber);
+//            Player player = new Player(name, i, board.getStartPosition(name));
+//            playersInGame.add(player);
+//        }
+//        allPlayers.addAll(playersInGame);
+//        board.initBoardPlayerStart();
+//    }
 
     public void dealHand(){
         //deal hand to playersInGame:
@@ -306,7 +306,7 @@ public class Game {
 
     public void doWin(Player player) {
         won = true;
-        System.out.println(player.getName() + " has won!");
+        System.out.println(player.getCharacter() + " has won!");
         System.out.println("Who dunnit? " + envelope.getCharacter().getName() + " used a " +
                 envelope.getWeaponCard().getName() + " in the " + envelope.getRoom().getName() + "!");
         System.out.println("Thanks for playing!");
