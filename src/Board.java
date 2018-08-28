@@ -368,5 +368,72 @@ public class Board
                 }
             }
         }
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 25; j++) {
+                switch (board[j][i]) {
+                    case '1':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.fillOval(i * width, j * height, width, height);
+                        g.setColor(Color.white);
+                        g.drawString("1", i * width + ((width - metrics.stringWidth("1")) / 2) + 1, j * height + ((height - metrics.getHeight()) / 2) + metrics.getAscent());
+                        break;
+                    case '2':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.fillOval(i * width, j * height, width, height);
+                        g.setColor(Color.white);
+                        g.drawString("2", i * width + ((width - metrics.stringWidth("2")) / 2) + 1, j * height + ((height - metrics.getHeight()) / 2) + metrics.getAscent());
+                        break;
+                    case '3':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.fillOval(i * width, j * height, width, height);
+                        g.setColor(Color.white);
+                        g.drawString("3", i * width + ((width - metrics.stringWidth("3")) / 2) + 1, j * height + ((height - metrics.getHeight()) / 2) + metrics.getAscent());
+                        break;
+                    case '4':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.fillOval(i * width, j * height, width, height);
+                        g.setColor(Color.white);
+                        g.drawString("4", i * width + ((width - metrics.stringWidth("4")) / 2) + 1, j * height + ((height - metrics.getHeight()) / 2) + metrics.getAscent());
+                        break;
+                    case '5':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.fillOval(i * width, j * height, width, height);
+                        g.setColor(Color.white);
+                        g.drawString("5", i * width + ((width - metrics.stringWidth("5")) / 2) + 1, j * height + ((height - metrics.getHeight()) / 2) + metrics.getAscent());
+                        break;
+                    case '6':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.fillOval(i * width, j * height, width, height);
+                        g.setColor(Color.white);
+                        g.drawString("6", i * width + ((width - metrics.stringWidth("6")) / 2) + 1, j * height + ((height - metrics.getHeight()) / 2) + metrics.getAscent());
+                        break;
+                }
+            }
+        }
     }
 }
