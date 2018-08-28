@@ -82,6 +82,7 @@ public class GUI {
     }
 
     public Map<String, String> selectCharacters(){
+
         //ask how many players are in the game
         JOptionPane optionPane = new JOptionPane();
         JPanel numbers = new JPanel();
@@ -108,9 +109,10 @@ public class GUI {
             numPlayers = 5;
         }else if(b4.isSelected()){
         numPlayers = 6;
-    }
-    //initialise players
-    Map<String, String> players = new HashMap<>();
+        }
+
+        //initialise players
+        Map<String, String> players = new HashMap<>();
         System.out.println(numPlayers);
         List<CharacterCard> characters = new ArrayList<>(game.getCharacters());
         for (int i = 0; i < numPlayers; i++) {
@@ -160,11 +162,15 @@ public class GUI {
                 game.moves--;
                 break;
         }
+        redraw(canvas.getGraphics());
     }
 
     public int getWidth(){
         return canvas.getWidth();
     }
+
+    //public void drawPlay
+
 
     public int getHeight(){
         return canvas.getHeight();
