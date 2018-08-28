@@ -37,7 +37,6 @@ public class Game {
         board.initRooms();
         board.initWeapons(weapons);
         board.initPlayerStart();
-        board.initBoardPlayerStart();
         //dealHand();
         board.print();
     }

@@ -140,6 +140,8 @@ public class GUI {
     private void doNewGame(){
         game = new Game(this);
         game.initPlayers();
+        game.getBoard().initBoardPlayerStart();
+        redraw(canvas.getGraphics());
     }
 
     private void onMove(char move){
