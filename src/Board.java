@@ -24,6 +24,16 @@ public class Board
     //Board Attributes
     private char board[][];
     private Map<String, Position> startPositions;
+    private static final Color KITCHEN_COLOR = Color.orange;
+    private static final Color BALLROOM_COLOR = Color.yellow;
+    private static final Color CONSERVATORY_COLOR = Color.red;
+    private static final Color DININGROOM_COLOR = Color.green;
+    private static final Color BILLIARDROOM_COLOR = Color.pink;
+    private static final Color LIBRARY_COLOR = Color.cyan;
+    private static final Color LOUNGE_COLOR = new Color(0, 100, 250);
+    private static final Color HALL_COLOR = new Color(200, 100, 0);
+    private static final Color STUDY_COLOR = Color.magenta;
+    private static final Color CORRIDOR_COLOR = Color.lightGray;
 
     //Board Associations
     private List<Room> rooms;
@@ -240,16 +250,123 @@ public class Board
     }
 
     public void draw(GUI gui, Graphics g){
-        //Graphics2D g2 = (Graphics2D) g;
-        int width = gui.getWidth();
-        int height = gui.getHeight();
         int rowLength = board[0].length;
         int colLength = board.length;
-        for (int i = 0; i < 25; i++) {
-            for (int j = 0; j < 24; j++) {
-                g.drawRect(i * width / rowLength, j * height / colLength, width / rowLength, height / colLength);
+        int width = (gui.getWidth() / rowLength);
+        int height = (gui.getHeight() / colLength);
+        //drawing room colors
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 25; j++) {
+                switch (board[j][i]) {
+                    case 'x':
+                        g.setColor(Color.DARK_GRAY);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'K':
+                        g.setColor(KITCHEN_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'B':
+                        g.setColor(BALLROOM_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'C':
+                        g.setColor(CONSERVATORY_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'N':
+                        g.setColor(DININGROOM_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'I':
+                        g.setColor(BILLIARDROOM_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'L':
+                        g.setColor(LIBRARY_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'O':
+                        g.setColor(LOUNGE_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'H':
+                        g.setColor(HALL_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case 'S':
+                        g.setColor(STUDY_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        break;
+                    case ' ':
+                        g.setColor(CORRIDOR_COLOR);
+                        g.fillRect(i * width, j * height, width, height);
+                        g.setColor(Color.black);
+                        g.drawRect(i * width, j * height, width, height);
+                        break;
+                    case '*':
+                        g.setColor(Color.black);
+                        g.drawString("E", i * width + (width / 2), j * height + (height / 2));
+                        g.drawRect(i * width, j * height, width, height);
+                        break;
+                }
             }
         }
-
+        Font roomFont = g.getFont();
+        //drawing room names
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 25; j++) {
+                if(i == 11 & j == 13) {
+                    g.setFont(new Font("TimesRoman", Font.PLAIN, 17));
+                    g.setColor(Color.white);
+                    g.drawString("CLUEDO", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 2 & j == 3) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Kitchen", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 11 & j == 3) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Ball Room", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 20 & j == 3) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Conservatory", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 2 & j == 12) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Dining Room", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 20 & j == 10) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Billiard Room", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 20 & j == 16) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Library", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 2 & j == 22) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Lounge", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 11 & j == 22) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Hall", i * width + (width / 2), j * height + (height / 2));
+                }
+                if(i == 20 & j == 22) {
+                    g.setFont(roomFont);
+                    g.setColor(Color.black);
+                    g.drawString("Study", i * width + (width / 2), j * height + (height / 2));
+                }
+            }
+        }
     }
 }
