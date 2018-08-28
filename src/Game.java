@@ -95,6 +95,8 @@ public class Game {
         playersInGame = GUI.selectCharacters();
         allPlayers.addAll(playersInGame);
         board.initBoardPlayerStart();
+        dealHand();
+        currentPlayer = playersInGame.get(0);
     }
 
     public void dealHand(){
@@ -125,7 +127,23 @@ public class Game {
         scan.close();
     }
 
-    public void doTurn(Player player) {
+    public void startTurn(){
+        Random rand = new Random();
+        int dice1 = rand.nextInt(7)+1;
+        int dice2 = rand.nextInt(7)+1;
+        roll = dice1+dice2;
+        moves = roll;
+    }
+
+    public void endTurn(){
+        int indexOfCurrentPlayer = playersInGame.indexOf(currentPlayer);
+        indexOfCurrentPlayer++;
+        if(indexOfCurrentPlayer > playersInGame.size()) indexOfCurrentPlayer = 0;
+        currentPlayer = playersInGame.get(indexOfCurrentPlayer);
+        if(!isWon()) startTurn();
+    }
+
+    /*public void doTurn(Player player) {
         Random rand = new Random();
         int dice1 = rand.nextInt(7)+1;
         int dice2 = rand.nextInt(7)+1;
@@ -172,7 +190,7 @@ public class Game {
             }
             getMoves(player);
         }
-    }
+    }*/
 
     public boolean checkSuggestions(Player player){
         if (!suggestions.isEmpty()) {
