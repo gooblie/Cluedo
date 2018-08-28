@@ -25,7 +25,7 @@ public class GUI {
 
         frame = new JFrame("Cluedo");
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(700, 700));
+        frame.setMinimumSize(new Dimension(800, 800));
         frame.setMaximizedBounds(new Rectangle(1000, 1000));
         //prompt user if wanting to exit
         frame.addWindowListener(new WindowAdapter() {
@@ -37,7 +37,7 @@ public class GUI {
                 }
             }
         });
-        frame.setSize(750,750);
+        frame.setSize(800,800);
 
         //set game canvas
         canvas = new JComponent() {
@@ -174,6 +174,18 @@ public class GUI {
 
     public void setPlayerView(){
 
+        JTextArea text = new JTextArea();
+        text.setText("Hi " + game.getCurrentPlayer().getName() + "You have ");
+
+        JComponent handView = new JComponent() {
+            protected void paintComponent(Graphics g) {
+                redraw(g);
+            }
+        };
+
+        playerView.add(text);
+        playerView.add(handView);
+
     }
 
     public int getHeight(){
@@ -183,7 +195,6 @@ public class GUI {
     private void redraw(Graphics g) {
         game.getBoard().draw(this, g);
     }
-
 
     public static void main(String args[]){
         new GUI();
