@@ -312,7 +312,7 @@ public class Board
                 }
             }
         }
-        Font roomFont = g.getFont();
+        Font roomFont = new Font("TimesRoman", Font.BOLD, 12);
         //drawing room names
         for (int i = 0; i < 24; i++) {
             for (int j = 0; j < 25; j++) {
