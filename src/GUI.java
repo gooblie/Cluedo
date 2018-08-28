@@ -17,6 +17,8 @@ public class GUI {
     private Game game;
     JComponent canvas;
     JPanel playerView;
+    JTextArea text;
+    JComponent handView;
 
     public GUI(){
         game = new Game(this);
@@ -54,8 +56,22 @@ public class GUI {
 
         //set up player controls
         playerView = new JPanel();
-        playerView.setPreferredSize(new Dimension(700, 150));
+        playerView.setPreferredSize(new Dimension(800, 150));
         playerView.setVisible(true);
+        text = new JTextArea();
+        handView = new JComponent() {
+            protected void paintComponent(Graphics g) {
+                redrawHand(g);
+            }
+        };
+        handView.setVisible(true);
+        playerView.setLayout(new GridLayout(1, 2));
+        playerView.add(text);
+        playerView.add(handView);
+        playerView.setVisible(true);
+//        handView.setPreferredSize(new Dimension(500, 150));
+//        text.setPreferredSize(new Dimension(200, 100));
+
 
         frame.getContentPane().addKeyListener(new KeyListener() {
             @Override
@@ -175,23 +191,10 @@ public class GUI {
 
     public void setPlayerView(){
 
-        JTextArea text = new JTextArea();
-        text.setText("Hi " + game.getCurrentPlayer().getName() + "You have " + game.moves + " moves");
-
-        JComponent handView = new JComponent() {
-            protected void paintComponent(Graphics g) {
-                redrawHand(g);
-            }
-        };
+        text.setText("Hi " + game.getCurrentPlayer().getName() + " (player " + game.getCurrentPlayer().getNum() + "), you have " + game.moves + " moves");
 
         //draw cards in hand
-
-
-        if (playerView != null){
-            playerView.add(text);
-            playerView.add(handView);
-        }
-
+        redrawHand(handView.getGraphics());
 
     }
 
@@ -204,18 +207,20 @@ public class GUI {
     }
 
     private void redrawHand(Graphics g){
-        int i = 0;
-        for (Card card: game.getCurrentPlayer().getCards()) {
-            //draw the card
-            if(card instanceof WeaponCard){
-                g.setColor(Color.red);
-            }else if(card instanceof CharacterCard){
-                g.setColor(Color.yellow);
-            }else{
-                g.setColor(Color.orange);
+        if(game.getCurrentPlayer()!= null) {
+            int i = 0;
+            for (Card card : game.getCurrentPlayer().getCards()) {
+                //draw the card
+                if (card instanceof WeaponCard) {
+                    g.setColor(Color.red);
+                } else if (card instanceof CharacterCard) {
+                    g.setColor(Color.yellow);
+                } else {
+                    g.setColor(Color.orange);
+                }
+                g.fillRect(i * 70, 10, 50, 100);
+                i++;
             }
-            g.drawRect(i*70, 0, 60, 100);
-            i++;
         }
     }
 

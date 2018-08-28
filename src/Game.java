@@ -33,11 +33,9 @@ public class Game {
     public Game(GUI GUI) {
         this.GUI = GUI;
         initFields();
-        //initPlayers();
         board.initRooms();
         board.initWeapons(weapons);
         board.initPlayerStart();
-        //dealHand();
         board.print();
     }
 
@@ -97,6 +95,7 @@ public class Game {
         board.initBoardPlayerStart();
         dealHand();
         currentPlayer = playersInGame.get(0);
+        startTurn();
     }
 
     public void dealHand(){
