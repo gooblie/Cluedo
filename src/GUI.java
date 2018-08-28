@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Michael on 27/08/18.
@@ -68,7 +71,6 @@ public class GUI {
             }
         });
 
-
         //add components to frame
         frame.getContentPane().add(BorderLayout.NORTH, menu);
         frame.getContentPane().add(BorderLayout.CENTER, canvas);
@@ -77,7 +79,7 @@ public class GUI {
 
     }
 
-    public List<Player> selectCharacters(){
+    public Map<String, String> selectCharacters(){
         //ask how many players are in the game
         JOptionPane optionPane = new JOptionPane();
         JPanel numbers = new JPanel();
@@ -94,20 +96,46 @@ public class GUI {
         numbers.add(b2);
         numbers.add(b3);
         numbers.add(b4);
-        numbers.add(new JLabel("I'm a walrus"));
-        JOptionPane.showMessageDialog(null, numbers);
-        int numPlayers;
+        JOptionPane.showMessageDialog(frame, numbers, "How many players", JOptionPane.QUESTION_MESSAGE);
+        int numPlayers = 0;
         if (b1.isSelected()){
             numPlayers = 3;
         }else if(b2.isSelected()){
             numPlayers = 4;
+        }else if(b3.isSelected()){
+            numPlayers = 5;
+        }else if(b4.isSelected()){
+        numPlayers = 6;
+    }
+    //initialise players
+    Map<String, String> players = new HashMap<>();
+        System.out.println(numPlayers);
+        List<CharacterCard> characters = new ArrayList<>(game.getCharacters());
+        for (int i = 0; i < numPlayers; i++) {
+            //ask for a player name
+            String playerName = JOptionPane.showInputDialog("Please input a name for your player");
+            JPanel characterPanel = new JPanel();
+            ButtonGroup buttonGroup1 = new ButtonGroup();
+            //ask which character the player would like to
+            for (CharacterCard c: characters) {
+                JRadioButton button = new JRadioButton(c.getName());
+                button.setActionCommand(c.getName());
+                characterPanel.add(button);
+                buttonGroup1.add(button);
+            }
+            JOptionPane.showMessageDialog(frame, characterPanel, "Select a character token", JOptionPane.QUESTION_MESSAGE );
+            String character = buttonGroup1.getSelection().getActionCommand();
+            for (CharacterCard c: game.getCharacters()) {
+                if(c.getName().equals(character)){characters.remove(c);}
+            }
+            players.put(playerName, character);
         }
-        return null;
+        return players;
     }
 
     private void doNewGame(){
         game = new Game(this);
-        selectCharacters();
+        game.initPlayers();
     }
 
     private void onMove(char move){

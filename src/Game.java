@@ -36,6 +36,7 @@ public class Game {
         //initPlayers();
         board.initRooms();
         board.initWeapons(weapons);
+        board.initPlayerStart();
         //dealHand();
         board.print();
     }
@@ -89,37 +90,18 @@ public class Game {
         envelope = new Call(cardStack.getWeaponCard(), cardStack.getRoomCard(), cardStack.getCharacterCard());
     }
 
-//    public void initPlayers() {
-//        //select playersInGame:
-//        System.out.println("Welcome to Cluedo!");
-//        int numOfPlayers = 0;
-//        board.initPlayerStart();
-//        while(3 > numOfPlayers || numOfPlayers > 6){
-//            System.out.println("How many players do you have? (3-6)");
-//
-//            String input = scan.nextLine();
-//            numOfPlayers = Integer.parseInt(input);
-//        }
-//        List<CharacterCard> charactersLeft = new ArrayList<>();
-//        charactersLeft.addAll(characters);
-//        for (int i = 1; i <= numOfPlayers; i++) {
-//            System.out.println("Player "+(i)+" - Please select a name:");
-//            for (int j = 0; j < charactersLeft.size(); j++) {
-//                System.out.println(j+": "+charactersLeft.get(j).getName());
-//            }
-//            int characterNumber = -1;
-//            while(0 > characterNumber || characterNumber > charactersLeft.size()){
-//                String input = scan.nextLine();
-//                characterNumber = Integer.parseInt(input);
-//            }
-//            String name = charactersLeft.get(characterNumber).getName();
-//            charactersLeft.remove(characterNumber);
-//            Player player = new Player(name, i, board.getStartPosition(name));
-//            playersInGame.add(player);
-//        }
-//        allPlayers.addAll(playersInGame);
-//        board.initBoardPlayerStart();
-//    }
+    public void initPlayers() {
+        //select playersInGame:
+        playersInGame = new ArrayList<>();
+        Map<String, String> players = GUI.selectCharacters();
+        int i = 0;
+        for (String s: players.keySet()) {
+            playersInGame.add(new Player(s, players.get(s), i, board.getStartPosition(players.get(s))));
+            i++;
+        }
+        allPlayers.addAll(playersInGame);
+        board.initBoardPlayerStart();
+    }
 
     public void dealHand(){
         //deal hand to playersInGame:
