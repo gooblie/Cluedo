@@ -94,7 +94,7 @@ public class Game {
         //select playersInGame:
         playersInGame = new ArrayList<>();
         Map<String, String> players = GUI.selectCharacters();
-        int i = 0;
+        int i = 1;
         for (String s: players.keySet()) {
             playersInGame.add(new Player(s, players.get(s), i, board.getStartPosition(players.get(s))));
             i++;
