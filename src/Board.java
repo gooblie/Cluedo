@@ -30,7 +30,7 @@ public class Board
     private static final Color DININGROOM_COLOR = Color.green;
     private static final Color BILLIARDROOM_COLOR = Color.pink;
     private static final Color LIBRARY_COLOR = Color.cyan;
-    private static final Color LOUNGE_COLOR = new Color(0, 100, 250);
+    private static final Color LOUNGE_COLOR = new Color(80, 120, 250);
     private static final Color HALL_COLOR = new Color(200, 100, 0);
     private static final Color STUDY_COLOR = Color.magenta;
     private static final Color CORRIDOR_COLOR = Color.lightGray;
@@ -305,8 +305,9 @@ public class Board
                         g.drawRect(i * width, j * height, width, height);
                         break;
                     case '*':
+                        FontMetrics ePlacement = g.getFontMetrics(g.getFont());
                         g.setColor(Color.black);
-                        g.drawString("E", i * width + (width / 2), j * height + (height / 2));
+                        g.drawString("E", i * width + ((width - ePlacement.stringWidth("E")) / 2) + 1, j * height + ((height - ePlacement.getHeight()) / 2) + ePlacement.getAscent());
                         g.drawRect(i * width, j * height, width, height);
                         break;
                 }
