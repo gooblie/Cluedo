@@ -16,7 +16,7 @@ public class Game {
     private List<WeaponCard> weapons;
     private Scanner scan;
     private ArrayList<Player> allPlayers;
-    private int roll;
+    public int roll;
     public int moves;
     private Player currentPlayer;
 

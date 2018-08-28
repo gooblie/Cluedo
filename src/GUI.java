@@ -25,7 +25,7 @@ public class GUI {
 
         frame = new JFrame("Cluedo");
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(800, 800));
+        frame.setMinimumSize(new Dimension(800, 750));
         frame.setMaximizedBounds(new Rectangle(1000, 1000));
         //prompt user if wanting to exit
         frame.addWindowListener(new WindowAdapter() {
@@ -37,7 +37,7 @@ public class GUI {
                 }
             }
         });
-        frame.setSize(800,800);
+        frame.setSize(800,750);
 
         //set game canvas
         canvas = new JComponent() {
@@ -55,45 +55,51 @@ public class GUI {
         menu.add(newGame);
 
         //set up player controls
-        playerView = new JPanel();
-        playerView.setPreferredSize(new Dimension(800, 150));
-        playerView.setVisible(true);
-        text = new JTextArea();
         handView = new JComponent() {
             protected void paintComponent(Graphics g) {
                 redrawHand(g);
             }
         };
+        handView.setPreferredSize(new Dimension(800, 150));
         handView.setVisible(true);
-        playerView.setLayout(new GridLayout(1, 2));
-        playerView.add(text);
-        playerView.add(handView);
-        playerView.setVisible(true);
-//        handView.setPreferredSize(new Dimension(500, 150));
-//        text.setPreferredSize(new Dimension(200, 100));
 
-
-        frame.getContentPane().addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                onMove(e.getKeyChar());
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
+        JButton west = new JButton("\u2190");
+        west.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                onMove(Move.WEST);
             }
         });
+
+        JButton east = new JButton("\u2192");
+        east.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                onMove(Move.EAST);
+            }
+        });
+
+        JButton north = new JButton("\u2191");
+        north.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                onMove(Move.NORTH);
+            }
+        });
+
+        JButton south = new JButton("\u2193");
+        south.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                onMove(Move.SOUTH);
+            }
+        });
+
+        menu.add(west);
+        menu.add(east);
+        menu.add(south);
+        menu.add(north);
 
         //add components to frame
         frame.getContentPane().add(BorderLayout.NORTH, menu);
         frame.getContentPane().add(BorderLayout.CENTER, canvas);
-        frame.getContentPane().add(BorderLayout.SOUTH, playerView);
+        frame.getContentPane().add(BorderLayout.SOUTH, handView);
         frame.setVisible(true);
 
     }
@@ -162,27 +168,29 @@ public class GUI {
         setPlayerView();
     }
 
-    private void onMove(char move){
-        if(game.getCurrentPlayer() == null || game.getMoves() == 0)return;
-        switch (java.lang.Character.toUpperCase(move)) {
-            case 'W':
+    private void onMove(Move move){
+        if(game.getCurrentPlayer() == null) return;
+        if(game.moves <= 0) {game.endTurn(); return;}
+        switch (move) {
+            case NORTH:
                 game.getBoard().move(game.getCurrentPlayer(), Board.Direction.NORTH);
                 game.moves--;
                 break;
-            case 'D':
+            case EAST:
                 game.getBoard().move(game.getCurrentPlayer(), Board.Direction.EAST);
                 game.moves--;
                 break;
-            case 'S':
+            case SOUTH:
                 game.getBoard().move(game.getCurrentPlayer(), Board.Direction.SOUTH);
                 game.moves--;
                 break;
-            case 'A':
+            case WEST:
                 game.getBoard().move(game.getCurrentPlayer(), Board.Direction.WEST);
                 game.moves--;
                 break;
         }
         redrawBoard(canvas.getGraphics());
+        redrawHand(handView.getGraphics());
     }
 
     public int getWidth(){
@@ -190,8 +198,6 @@ public class GUI {
     }
 
     public void setPlayerView(){
-
-        text.setText("Hi " + game.getCurrentPlayer().getName() + " (player " + game.getCurrentPlayer().getNum() + "), you have " + game.moves + " moves");
 
         //draw cards in hand
         redrawHand(handView.getGraphics());
@@ -208,6 +214,18 @@ public class GUI {
 
     private void redrawHand(Graphics g){
         if(game.getCurrentPlayer()!= null) {
+            handView.repaint();
+            //display the turn state
+            g.setColor(Color.black);
+            g.setFont(new Font("Arial", Font.BOLD, 13));
+            g.drawString(game.getCurrentPlayer().getName()+ "'s turn", 15, 30);
+            g.drawString("(Player " + game.getCurrentPlayer().getNum() + ")", 15, 50);
+
+            g.setFont(new Font("Arial", Font.PLAIN, 12));
+            g.drawString("you rolled a " + game.roll, 15, 70);
+            g.drawString("you have " + game.moves + " moves", 15, 90);
+
+
             int i = 0;
             for (Card card : game.getCurrentPlayer().getCards()) {
                 //draw the card
@@ -218,7 +236,10 @@ public class GUI {
                 } else {
                     g.setColor(Color.orange);
                 }
-                g.fillRect(i * 70, 10, 50, 100);
+                g.fillRect(150+i*90, 10, 80, 100);
+                g.setColor(Color.black);
+                g.setFont(new Font("TimesRoman", Font.PLAIN, 11));
+                g.drawString(card.getName(), 150+i*90+5, 30);
                 i++;
             }
         }
