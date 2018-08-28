@@ -24,6 +24,8 @@ public class GUI {
 
         frame = new JFrame("Cluedo");
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(700, 700));
+        frame.setMaximizedBounds(new Rectangle(1000, 800));
         //prompt user if wanting to exit
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -34,7 +36,7 @@ public class GUI {
                 }
             }
         });
-        frame.setSize(500,500);
+        frame.setSize(750,750);
 
         //set game canvas
         canvas = new JComponent() {
