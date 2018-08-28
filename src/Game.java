@@ -108,7 +108,7 @@ public class Game {
         }
     }
 
-    public void gameLoop(){
+   /*public void gameLoop(){
         int t = 0;
         while(!isWon()) {
             if(t>= playersInGame.size()){t=0;}
@@ -125,7 +125,7 @@ public class Game {
             }
         }
         scan.close();
-    }
+    }*/
 
     public void startTurn(){
         Random rand = new Random();

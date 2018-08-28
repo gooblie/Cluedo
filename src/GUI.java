@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Michael on 27/08/18.
@@ -42,7 +40,7 @@ public class GUI {
         //set game canvas
         canvas = new JComponent() {
             protected void paintComponent(Graphics g) {
-                redraw(g);
+                redrawBoard(g);
             }
         };
 
@@ -55,7 +53,9 @@ public class GUI {
         menu.add(newGame);
 
         //set up player controls
-        JPanel playerView = new JPanel();
+        playerView = new JPanel();
+        playerView.setPreferredSize(new Dimension(700, 150));
+        playerView.setVisible(true);
 
         frame.getContentPane().addKeyListener(new KeyListener() {
             @Override
@@ -109,7 +109,7 @@ public class GUI {
         }else if(b3.isSelected()){
             numPlayers = 5;
         }else if(b4.isSelected()){
-        numPlayers = 6;
+            numPlayers = 6;
         }
 
         //initialise players
@@ -142,7 +142,8 @@ public class GUI {
         game = new Game(this);
         game.initPlayers();
         game.getBoard().initBoardPlayerStart();
-        redraw(canvas.getGraphics());
+        redrawBoard(canvas.getGraphics());
+        setPlayerView();
     }
 
     private void onMove(char move){
@@ -165,7 +166,7 @@ public class GUI {
                 game.moves--;
                 break;
         }
-        redraw(canvas.getGraphics());
+        redrawBoard(canvas.getGraphics());
     }
 
     public int getWidth(){
@@ -175,16 +176,22 @@ public class GUI {
     public void setPlayerView(){
 
         JTextArea text = new JTextArea();
-        text.setText("Hi " + game.getCurrentPlayer().getName() + "You have ");
+        text.setText("Hi " + game.getCurrentPlayer().getName() + "You have " + game.moves + " moves");
 
         JComponent handView = new JComponent() {
             protected void paintComponent(Graphics g) {
-                redraw(g);
+                redrawHand(g);
             }
         };
 
-        playerView.add(text);
-        playerView.add(handView);
+        //draw cards in hand
+
+
+        if (playerView != null){
+            playerView.add(text);
+            playerView.add(handView);
+        }
+
 
     }
 
@@ -192,8 +199,24 @@ public class GUI {
         return canvas.getHeight();
     }
 
-    private void redraw(Graphics g) {
+    private void redrawBoard(Graphics g) {
         game.getBoard().draw(this, g);
+    }
+
+    private void redrawHand(Graphics g){
+        int i = 0;
+        for (Card card: game.getCurrentPlayer().getCards()) {
+            //draw the card
+            if(card instanceof WeaponCard){
+                g.setColor(Color.red);
+            }else if(card instanceof CharacterCard){
+                g.setColor(Color.yellow);
+            }else{
+                g.setColor(Color.orange);
+            }
+            g.drawRect(i*70, 0, 60, 100);
+            i++;
+        }
     }
 
     public static void main(String args[]){
