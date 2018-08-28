@@ -369,6 +369,7 @@ public class Board
                 }
             }
         }
+        g.setFont(new Font("Arial", Font.PLAIN, 17));
         FontMetrics metrics = g.getFontMetrics(g.getFont());
         for (int i = 0; i < 24; i++) {
             for (int j = 0; j < 25; j++) {
