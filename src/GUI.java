@@ -18,6 +18,7 @@ public class GUI {
     public JFrame frame;
     private Game game;
     JComponent canvas;
+    JPanel playerView;
 
     public GUI(){
         game = new Game(this);
@@ -25,7 +26,7 @@ public class GUI {
         frame = new JFrame("Cluedo");
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setMinimumSize(new Dimension(700, 700));
-        frame.setMaximizedBounds(new Rectangle(1000, 800));
+        frame.setMaximizedBounds(new Rectangle(1000, 1000));
         //prompt user if wanting to exit
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -54,7 +55,7 @@ public class GUI {
         menu.add(newGame);
 
         //set up player controls
-        JPanel playerControls = new JPanel();
+        JPanel playerView = new JPanel();
 
         frame.getContentPane().addKeyListener(new KeyListener() {
             @Override
@@ -76,12 +77,12 @@ public class GUI {
         //add components to frame
         frame.getContentPane().add(BorderLayout.NORTH, menu);
         frame.getContentPane().add(BorderLayout.CENTER, canvas);
-        frame.getContentPane().add(BorderLayout.SOUTH, playerControls);
+        frame.getContentPane().add(BorderLayout.SOUTH, playerView);
         frame.setVisible(true);
 
     }
 
-    public Map<String, String> selectCharacters(){
+    public List<Player> selectCharacters(){
 
         //ask how many players are in the game
         JOptionPane optionPane = new JOptionPane();
@@ -112,10 +113,10 @@ public class GUI {
         }
 
         //initialise players
-        Map<String, String> players = new HashMap<>();
+        List<Player> players = new ArrayList<>();
         System.out.println(numPlayers);
         List<CharacterCard> characters = new ArrayList<>(game.getCharacters());
-        for (int i = 0; i < numPlayers; i++) {
+        for (int i = 1; i <= numPlayers; i++) {
             //ask for a player name
             String playerName = JOptionPane.showInputDialog("Please input a name for your player");
             JPanel characterPanel = new JPanel();
@@ -132,7 +133,7 @@ public class GUI {
             for (CharacterCard c: game.getCharacters()) {
                 if(c.getName().equals(character)){characters.remove(c);}
             }
-            players.put(playerName, character);
+            players.add(new Player(playerName, character, i, game.getBoard().getStartPosition(character)));
         }
         return players;
     }
@@ -171,8 +172,9 @@ public class GUI {
         return canvas.getWidth();
     }
 
-    //public void drawPlay
+    public void setPlayerView(){
 
+    }
 
     public int getHeight(){
         return canvas.getHeight();
